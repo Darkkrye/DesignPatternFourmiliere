@@ -1,0 +1,29 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnthillSim", "AnthillSim\AnthillSim.csproj", "{B3E72F9B-083B-49B5-80DF-0E7512282772}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibAbstraite", "LibAbstraite\LibAbstraite.csproj", "{3C66F374-CA21-4563-8A7E-1960C66E68C0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibMetier", "LibMetier\LibMetier.csproj", "{1F7C1499-F7E3-41DF-8357-7569C9E58B02}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B3E72F9B-083B-49B5-80DF-0E7512282772}.Debug|x86.ActiveCfg = Debug|x86
+		{B3E72F9B-083B-49B5-80DF-0E7512282772}.Debug|x86.Build.0 = Debug|x86
+		{B3E72F9B-083B-49B5-80DF-0E7512282772}.Release|x86.ActiveCfg = Release|x86
+		{B3E72F9B-083B-49B5-80DF-0E7512282772}.Release|x86.Build.0 = Release|x86
+		{3C66F374-CA21-4563-8A7E-1960C66E68C0}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3C66F374-CA21-4563-8A7E-1960C66E68C0}.Debug|x86.Build.0 = Debug|Any CPU
+		{3C66F374-CA21-4563-8A7E-1960C66E68C0}.Release|x86.ActiveCfg = Release|Any CPU
+		{3C66F374-CA21-4563-8A7E-1960C66E68C0}.Release|x86.Build.0 = Release|Any CPU
+		{1F7C1499-F7E3-41DF-8357-7569C9E58B02}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1F7C1499-F7E3-41DF-8357-7569C9E58B02}.Debug|x86.Build.0 = Debug|Any CPU
+		{1F7C1499-F7E3-41DF-8357-7569C9E58B02}.Release|x86.ActiveCfg = Release|Any CPU
+		{1F7C1499-F7E3-41DF-8357-7569C9E58B02}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
