@@ -1,0 +1,72 @@
+Pattern Template:
+- Class abstraite + héritage
+- fonction a overider
+- fonction execute -> lance un algo avec toutes les fonction abstraite
+
+
+Pattern stratégie
+- Définir comportement (algo) interchangeable
+- ex : tous est idépendant 
+
+
+Patern  Observer :
+- Delegate (event)
+- abonnement des observateur (delegate consommé par observateur)
+- notification des observé (delegate créer par observé)
+Méthode de l'appelant passer en param avec la méthode dans le delegate.
+
+
+Pattern Factory :
+ - Exemple : plateau de jeu
+ - gestion d'héritage : pattern principale -> différent objet
+ - parent (class abstraite) : création des objets (instanciation)
+
+
+Pattern Decorateur
+ - Poupée russe ( ex boisson : ingrédients deviens boisson et on les ajoutent les un sur les autres)
+ - pointeur de boisson dans décorateur
+ - un ingérdient pointe sur un cafe ou un igredient qui lui même pointe sur un café ... etc poupée russe
+ - fonction fais super + traitement ex :  toString (ToString parent + "fils")
+ - Ajout promotion (boisson avec cout -%)
+ - Coeur métier séparé par feature, possibilité d'en ajouter sans tous modifier
+ - Exemple supplémentaire : personnage (nom prénom) + Décorateur : équipement, sort, est chef ...
+
+
+Pattern adapter
+ - ...
+
+Pattern commande
+ - class receveur & commande
+ - Commande contiens un receveur et une méthode éxécuter
+ - Receveur contiens un emplacement(string) etdeux fonction (on/off)
+ - Exemple : un receveur lampe ; Deux commandes CommandeAllumerLampe (execute(){lampe.on()}); CommandeEteindreLampe(execute(){lampe.off()})
+ - Télécommande : Tableau de commande -> ctor(int index, Commande cmd) + fonction marche / arret (int index)
+ Macro commande : tout allumer ou tout eteindre ou annuler:
+	- Annuler
+	 	-> Commande : ajouter méthode annuler / si commandeAllumerLampe -> annuler(){lampe.off}
+	 	-> Télécommande : ajout prorpiete commandeAnnuler -> quand presseBouton stocker la commande
+		-> Si boutonAnnulerPréssé -> commandeAnnuler.annuler();
+	- undo redo 
+		-> Commande: ajouter pile "action executer" dans la méthode executer 
+		-> Télécommande : "anuler tout" prend toutes les commande dans la pile pour les annuler une par une
+  		-> possibilité d'annuler une / deux / trois / ... actions 
+		-> possibilité d'ajouter une pile "action annuler" pour refaire une action annuler (ctrl+Y)
+
+
+Pattern Etat
+ - Exemple distributeur de bonbon Class distributeur 
+ 	-> Enumération des états possible (épuisé ; une piece; sans piece ; vendue) 
+	-> Propriété état en cours
+	-> fonction iaction possible (remplir; inséré piece; tourné poigné; ejecter piece+...)
+		-> switch case de chaque état (gestion des erreurs)
+- Fonctionnement non maintenable en cas d'ajout d'état (-_-")
+- Solution version Objet :
+	-> Class état abstrait : Enumération deviens objet héritant de abstrait
+		-> Propriete distributeur
+		-> méthode action abstraite
+	-> Distributeur : contiens etat abstrait (courant) 
+		-> méthode Changement Etat + Actions (appele EtatEnCours.Actions)
+		-> Obtimisation : Dictionnaire d'état pour éviter d'instancié un new objet à chaque changement
+	-> Etat Concret
+		-> Methode Action en fonction de l'etat traité
+		-> chaque action ce finit par distributeur.ChangementEtat();
