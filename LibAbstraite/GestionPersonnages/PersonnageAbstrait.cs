@@ -13,6 +13,8 @@ namespace LibAbstraite
 
 		public abstract ZoneAbstraite ChoixZoneSuivante(List<AccesAbstrait> accesList);
 
+        public abstract void ChangementEtat(EtatFourmiAbstrait etatCourant);
+
 		//public PersonnageAbstrait();
 	}
 }

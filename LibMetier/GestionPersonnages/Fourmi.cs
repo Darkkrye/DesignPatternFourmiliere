@@ -8,14 +8,24 @@ namespace LibMetier
 	{
 		public override ZoneAbstraite Position { get; set; }
 		public override string Nom { get; set; }
+        public EtatFourmiAbstrait EtatCourant { get; set; }
 
 		public override ZoneAbstraite ChoixZoneSuivante(List<AccesAbstrait> accesList)
 		{
 			throw new NotImplementedException();
 		}
 
-		//public string ToString(){
-			
-		//}
-	}
+        public override void ChangementEtat(EtatFourmiAbstrait etatCourant)
+        {
+            EtatCourant = etatCourant;
+        }
+
+
+        //public string ToString(){
+
+        //}
+
+
+
+    }
 }
