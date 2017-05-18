@@ -55,6 +55,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ViewModel\FourmiliereViewModel.cs" />
+    <Compile Include="ViewModel\ViewModelBase.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -94,6 +96,20 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Ressources\ant.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LibAbstraite\LibAbstraite.csproj">
+      <Project>{3c66f374-ca21-4563-8a7e-1960c66e68c0}</Project>
+      <Name>LibAbstraite</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LibMetier\LibMetier.csproj">
+      <Project>{1f7c1499-f7e3-41df-8357-7569c9e58b02}</Project>
+      <Name>LibMetier</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

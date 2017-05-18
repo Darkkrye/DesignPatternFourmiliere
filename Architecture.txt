@@ -1,0 +1,22 @@
+Factory -> plateau de la fourmiliere
+	Définir les salles et les chemins
+
+Etat -> Fourmi et comportement
+	Définir les états
+
+Observeur -> Météo et heure de la journée, ...
+	Definir quel event à observé
+
+	Plusieurs type de fourmi (reine (singleton ?)/ ouvriere/ guerriere)
+
+
+Xaml cours :
+	Tours suivant deplace fourmi + dessine
+	Etape List : Chemin parcouru
+	
+mettre image à la plce fourmi
+
+Dispatchertime 
+dt.tick /// se demerder le prof est un con !
+
+Fichier XML

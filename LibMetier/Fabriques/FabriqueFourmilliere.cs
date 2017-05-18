@@ -8,7 +8,7 @@ namespace LibMetier
 		// instanciation singleton
 		private static FabriqueFourmilliere instanceFourmilliere;
 
-		public override string Titre => throw new NotImplementedException();
+        public override string Titre { get; }
 
 		public override AccesAbstrait CreerAcces(ZoneAbstraite zdebut, ZoneAbstraite zfin)
 		{
@@ -28,7 +28,8 @@ namespace LibMetier
 
 		public override PersonnageAbstrait CreerPersonnage(string nom)
 		{
-			return new Fourmi();
+            //wpf
+			return new Fourmi("");
 		}
 
 		public override ZoneAbstraite CreerZone(string nom)
