@@ -6,14 +6,12 @@ namespace LibAbstraite
 		public enum TypeObjet { Nourriture, Oeuf, Pheromone };
 
 		public abstract string Nom { get; set; }
-		private TypeObjet TypeO;
 
 		public abstract ZoneAbstraite Position { get; set; }
 
-		protected ObjetAbstrait(String unNom, TypeObjet type)
+		protected ObjetAbstrait(String unNom)
 		{
 			Nom = unNom;
-			TypeO = type;
 		}
 
 

@@ -10,7 +10,6 @@ namespace LibAbstraite
 		public enum TypePersonnage { Fourmi };
 
 		public abstract string Nom { get; set; }
-		private TypePersonnage TypeP;
 
 		public abstract ZoneAbstraite Position { get; set; }
 
@@ -18,9 +17,8 @@ namespace LibAbstraite
 
         	public abstract void ChangementEtat(EtatFourmiAbstrait etatCourant);
 
-		public PersonnageAbstrait(string nom, TypePersonnage type){
+		public PersonnageAbstrait(string nom){
 			Nom = nom;
-			TypeP = type;
 		}
 	}
 }
