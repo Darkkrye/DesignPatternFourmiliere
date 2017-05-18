@@ -8,7 +8,7 @@ namespace LibMetier
 		// instanciation singleton
 		private static FabriqueFourmilliere instanceFourmilliere;
 
-        public override string Titre { get; }
+        	public override string Titre { get; }
 
 		public override AccesAbstrait CreerAcces(ZoneAbstraite zdebut, ZoneAbstraite zfin)
 		{
@@ -20,16 +20,31 @@ namespace LibMetier
 			return new Fourmiliere();
 		}
 
-		public override ObjetAbstrait CreerObjet(string nom)
+		public override ObjetAbstrait CreerObjet(string nom, ObjetAbstrait.TypeObjet type)
 		{
-			//return new ObjetAbstrait();
-			throw new NotImplementedException();
+			if(type == ObjetAbstrait.TypeObjet.Nourriture){
+				return new Nourriture(nom);
+			}else if(type == ObjetAbstrait.TypeObjet.Oeuf){
+				return new Oeuf(nom);
+			}
+			else if (type == ObjetAbstrait.TypeObjet.Pheromone)
+			{
+				return new Pheromone(nom);
+			}else{
+				throw new NotImplementedException();
+			}
 		}
 
-		public override PersonnageAbstrait CreerPersonnage(string nom)
+		public override PersonnageAbstrait CreerPersonnage(string nom, PersonnageAbstrait.TypePersonnage type)
 		{
-            //wpf
-			return new Fourmi("");
+			if (type == PersonnageAbstrait.TypePersonnage.Fourmi)
+			{
+				return new Fourmi(nom);
+			}
+			else
+			{
+				throw new NotImplementedException();
+			}
 		}
 
 		public override ZoneAbstraite CreerZone(string nom)
