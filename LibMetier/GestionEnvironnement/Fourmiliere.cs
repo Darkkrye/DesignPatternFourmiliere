@@ -60,7 +60,7 @@ namespace LibMetier
 
 		public override void DeplacerPersonnage(PersonnageAbstrait unPersonnage, ZoneAbstraite zoneSource, ZoneAbstraite zoneFin)
 		{
-			throw new NotImplementedException();
+			unPersonnage.Position = zoneFin;
 		}
 
 		public override void Simuler()
@@ -70,7 +70,34 @@ namespace LibMetier
 
 		public override string Statistiques()
 		{
-			throw new NotImplementedException();
+			string result = "";
+
+			result += "Acces : \n";
+			foreach(AccesAbstrait a in AccesAbstraitsList){
+				result += "Début = " + a.debut.Nom + ", ";
+				result += "Fin = " + a.fin + "\n";
+			}
+
+			result += "\nZone : \n";
+			foreach (ZoneAbstraite a in ZoneAbstraiteList)
+			{
+				result += "Nom = " + a.Nom + "\n";
+			}
+
+			result += "\nObjet : \n";
+			foreach (ObjetAbstrait a in ObjetAbstraitList)
+			{
+				result += "Nom = " + a.Nom + ", ";
+				result += "Position = " + a.Position + "\n";
+			}
+
+			result += "\nPersonnage : \n";
+			foreach (PersonnageAbstrait a in PersonnageAbstraitList)
+			{
+				result += "Nom = " + a.Nom + ", ";
+				result += "Position = " + a.Position + "\n";
+			}
+			return result;
 		}
 	}
 }

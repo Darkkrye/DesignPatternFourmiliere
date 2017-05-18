@@ -9,7 +9,7 @@ namespace LibMetier
 	{
         private Random rand;
         public override ZoneAbstraite Position { get; set; }
-		public override string Nom { get; set; }
+	public override string Nom { get; set; }
         public EtatFourmiAbstrait EtatCourant { get; set; }
 
         /// <summary>
@@ -23,32 +23,29 @@ namespace LibMetier
 
         //vie ; 
 
-        public Fourmi(string nom)
+        public Fourmi(string nom) : base(nom)
         {
-            //random non fnctionnel ...
-            rand = new Random();
-            //ajout depuis WPF
-            EtapesList = new ObservableCollection<Etape>();
-            X = rand.Next(0,20);
-            Y = rand.Next(0,20);
-            EtapesList.Add(new Etape() { NumeroTour = 1, X = X, Y= Y });
-            Nom = nom;
-            Affichage = Nom + X + Y;
-          
+        	//random non fnctionnel ...
+		rand = new Random();
+		//ajout depuis WPF
+		EtapesList = new ObservableCollection<Etape>();
+		X = rand.Next(0,20);
+		Y = rand.Next(0,20);
+		EtapesList.Add(new Etape() { NumeroTour = 1, X = X, Y= Y });
+		Nom = nom;
+		Affichage = Nom + X + Y;
         }
 
-		public override ZoneAbstraite ChoixZoneSuivante(List<AccesAbstrait> accesList)
-		{
-			throw new NotImplementedException();
-		}
+	public override ZoneAbstraite ChoixZoneSuivante(List<AccesAbstrait> accesList)
+	{
+		throw new NotImplementedException();
+	}
 
         public override void ChangementEtat(EtatFourmiAbstrait etatCourant)
         {
             EtatCourant = etatCourant;
         }
 
-
-        
         /// <summary>
         /// ajout depuis le cours WPF à mettre dans les design pattern
         /// </summary>
