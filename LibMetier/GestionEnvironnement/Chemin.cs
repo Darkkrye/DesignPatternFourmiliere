@@ -9,5 +9,7 @@ namespace LibMetier
 		public override ZoneAbstraite fin { get; set; }
 
 		public Chemin(ZoneAbstraite debut, ZoneAbstraite fin) : base(debut, fin) { }
+
+
 	}
 }

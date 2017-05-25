@@ -17,8 +17,10 @@ namespace LibAbstraite
 
         	public abstract void ChangementEtat(EtatFourmiAbstrait etatCourant);
 
-		public PersonnageAbstrait(string nom){
+		public PersonnageAbstrait(string nom, ZoneAbstraite position)
+        {
 			Nom = nom;
+            Position = position;
 		}
 	}
 }

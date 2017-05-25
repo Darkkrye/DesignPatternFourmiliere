@@ -20,26 +20,26 @@ namespace LibMetier
 			return new Fourmiliere();
 		}
 
-		public override ObjetAbstrait CreerObjet(string nom, ObjetAbstrait.TypeObjet type)
+		public override ObjetAbstrait CreerObjet(string nom, ObjetAbstrait.TypeObjet type, ZoneAbstraite position)
 		{
 			if(type == ObjetAbstrait.TypeObjet.Nourriture){
-				return new Nourriture(nom);
+				return new Nourriture(nom, position);
 			}else if(type == ObjetAbstrait.TypeObjet.Oeuf){
-				return new Oeuf(nom);
+				return new Oeuf(nom, position);
 			}
 			else if (type == ObjetAbstrait.TypeObjet.Pheromone)
 			{
-				return new Pheromone(nom);
+				return new Pheromone(nom, position);
 			}else{
 				throw new NotImplementedException();
 			}
 		}
 
-		public override PersonnageAbstrait CreerPersonnage(string nom, PersonnageAbstrait.TypePersonnage type)
+		public override PersonnageAbstrait CreerPersonnage(string nom, PersonnageAbstrait.TypePersonnage type, ZoneAbstraite position)
 		{
 			if (type == PersonnageAbstrait.TypePersonnage.Fourmi)
 			{
-				return new Fourmi(nom);
+				return new Fourmi(nom, position);
 			}
 			else
 			{
@@ -47,9 +47,9 @@ namespace LibMetier
 			}
 		}
 
-		public override ZoneAbstraite CreerZone(string nom)
+		public override ZoneAbstraite CreerZone(string nom, int x, int y)
 		{
-			return new BoutDeTerrain(nom);
+			return new BoutDeTerrain(nom, x, y);
 		}
 
 

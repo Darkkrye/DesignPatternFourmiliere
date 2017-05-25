@@ -9,9 +9,10 @@ namespace LibAbstraite
 
 		public abstract ZoneAbstraite Position { get; set; }
 
-		protected ObjetAbstrait(String unNom)
+		protected ObjetAbstrait(String unNom, ZoneAbstraite Position)
 		{
 			Nom = unNom;
+            this.Position = Position;
 		}
 
 

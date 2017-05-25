@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using LibAbstraite;
+using System.Linq;
 
 namespace LibMetier
 {
@@ -22,6 +23,7 @@ namespace LibMetier
 		{
 			foreach (AccesAbstrait acces in accesArray)
 			{
+                
 				AccesAbstraitsList.Add(acces);
 			}
 		}
@@ -72,32 +74,81 @@ namespace LibMetier
 		{
 			string result = "";
 
-			result += "Acces : \n";
-			foreach(AccesAbstrait a in AccesAbstraitsList){
-				result += "Début = " + a.debut.Nom + ", ";
-				result += "Fin = " + a.fin + "\n";
-			}
+            result += "\nZone : \n";
+            foreach (ZoneAbstraite a in ZoneAbstraiteList)
+            {
+                result += "Nom = " + a.Nom + ", ";
+                result += "Position = " + a.X + ", "  + a.Y + "\n";
 
-			result += "\nZone : \n";
-			foreach (ZoneAbstraite a in ZoneAbstraiteList)
-			{
-				result += "Nom = " + a.Nom + "\n";
+            }
+
+            result += "Acces : \n";
+			foreach(AccesAbstrait a in AccesAbstraitsList){
+                if(a != null)
+                {
+                    result += "Début = " + a.debut.Nom + ", ";
+                    result += "Fin = " + a.fin.Nom + "\n";
+                }
 			}
 
 			result += "\nObjet : \n";
 			foreach (ObjetAbstrait a in ObjetAbstraitList)
 			{
 				result += "Nom = " + a.Nom + ", ";
-				result += "Position = " + a.Position + "\n";
+				result += "Position = " + a.Position.X + ", " + a.Position.Y + "\n";
 			}
 
 			result += "\nPersonnage : \n";
 			foreach (PersonnageAbstrait a in PersonnageAbstraitList)
 			{
 				result += "Nom = " + a.Nom + ", ";
-				result += "Position = " + a.Position + "\n";
+				result += "Position = " + a.Position.X + ", " + a.Position.Y + "\n";
 			}
 			return result;
 		}
-	}
+
+        public List<ZoneAbstraite> getZoneAbstraiteList()
+        {
+            return ZoneAbstraiteList;
+        }
+
+        public void AnalyseSituation()
+        {
+            foreach (PersonnageAbstrait p in PersonnageAbstraitList)
+            {
+                DeplacerPersonnage(p, p.Position, rechercheNourriture(p));
+            }
+            
+        }
+        
+        public ZoneAbstraite rechercheNourriture(PersonnageAbstrait p)
+        {
+            Random random = new Random();
+            int resultat;
+            // liste de chemin disponible
+            List<ZoneAbstraite> zone = new List<ZoneAbstraite>();
+            // compteur de chemin disponible
+            int cpt = 0;
+            foreach(AccesAbstrait a in AccesAbstraitsList)
+            {
+                if (p.Position == a.debut)
+                {
+                    // recherche d'un objet dans les zones autour de la fourmi
+                    foreach (ObjetAbstrait o in ObjetAbstraitList)
+                    {
+                        cpt++;
+                        zone.Add(a.fin);
+                        if (a.fin == o.Position)
+                        {
+                            return a.fin;
+                        }
+                    }
+                    // si aucun objet trouve, la fourni prend un chemin au hasard
+                    resultat = random.Next(0, cpt);
+                    return zone.ElementAt(resultat);
+                }
+            }
+            return null;
+        }
+    }
 }

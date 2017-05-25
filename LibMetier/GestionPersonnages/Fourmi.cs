@@ -9,8 +9,9 @@ namespace LibMetier
 	{
         private Random rand;
         public override ZoneAbstraite Position { get; set; }
-	public override string Nom { get; set; }
+	    public override string Nom { get; set; }
         public EtatFourmiAbstrait EtatCourant { get; set; }
+        public List<AccesAbstrait> pathToFood { get; set; }
 
         /// <summary>
         /// ajout depuis le cours WPF revérifier plus tard
@@ -23,7 +24,7 @@ namespace LibMetier
 
         //vie ; 
 
-        public Fourmi(string nom) : base(nom)
+        public Fourmi(string nom, ZoneAbstraite position) : base(nom, position)
         {
         	//random non fnctionnel ...
 		rand = new Random();

@@ -10,8 +10,10 @@ namespace LibMetier
 		List<ObjetAbstrait> ObjetList;
 		List<PersonnageAbstrait> PersonnageList;
 		List<AccesAbstrait> AccesAbstraiteList;
+        public override int X { get; set; }
+        public override int Y { get; set; }
 
-		public BoutDeTerrain(string unNom) : base(unNom)
+        public BoutDeTerrain(string unNom, int x, int y) : base(unNom, x, y)
 		{
 			ObjetList = new List<ObjetAbstrait>();
 			PersonnageList = new List<PersonnageAbstrait>();
