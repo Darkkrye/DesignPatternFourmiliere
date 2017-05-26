@@ -30,11 +30,11 @@ namespace LibMetier
 		rand = new Random();
 		//ajout depuis WPF
 		EtapesList = new ObservableCollection<Etape>();
-		X = rand.Next(0,20);
-		Y = rand.Next(0,20);
+		//X = rand.Next(0,20);
+		//Y = rand.Next(0,20);
 		EtapesList.Add(new Etape() { NumeroTour = 1, X = X, Y= Y });
-		Nom = nom;
-		Affichage = Nom + X + Y;
+		//Nom = nom;
+		//Affichage = Nom + X + Y;
         }
 
 	public override ZoneAbstraite ChoixZoneSuivante(List<AccesAbstrait> accesList)

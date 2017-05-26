@@ -67,8 +67,8 @@ namespace LibMetier
 
 		public override void Simuler()
 		{
-			throw new NotImplementedException();
-		}
+            AnalyseSituation();
+        }
 
 		public override string Statistiques()
 		{
@@ -116,6 +116,9 @@ namespace LibMetier
         {
             foreach (PersonnageAbstrait p in PersonnageAbstraitList)
             {
+                // if fourmi a de la nourriture -> retourner a la fourmiliere
+                
+                // sinon recherche nouritture
                 DeplacerPersonnage(p, p.Position, rechercheNourriture(p));
             }
             
@@ -143,12 +146,16 @@ namespace LibMetier
                             return a.fin;
                         }
                     }
-                    // si aucun objet trouve, la fourni prend un chemin au hasard
-                    resultat = random.Next(0, cpt);
-                    return zone.ElementAt(resultat);
                 }
             }
-            return null;
+            // si aucun objet trouve, la fourni prend un chemin au hasard
+            resultat = random.Next(0, cpt);
+            return zone.ElementAt(resultat);
+        }
+
+        public void goHome()
+        {
+
         }
     }
 }

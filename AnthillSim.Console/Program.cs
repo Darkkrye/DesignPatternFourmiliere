@@ -11,11 +11,11 @@ namespace AnthillSim.Console
     class Program
     {
         // taille de l'environnement
-        public const int maxX = 20;
-        public const int maxY = 20;
+        public const int maxX = 3;
+        public const int maxY = 3;
         // nombre objet + fourmi
-        public const int nombreObjet = 10;
-        public const int nombreFourmi = 10;
+        public const int nombreObjet = 3;
+        public const int nombreFourmi = 2;
 
         static void Main(string[] args)
         {
@@ -34,25 +34,27 @@ namespace AnthillSim.Console
 
             // tour de jeu
             bool continu = true;
+            string choix;
             while (continu)
             {
                 System.Console.WriteLine("Que voulez vous faire ?");
                 System.Console.WriteLine("1. nouveau tour de jeu");
                 System.Console.WriteLine("2. statistique tour");
                 System.Console.WriteLine("3. Sauvegarder et quitter");
-                if (System.Console.ReadLine() == "1")
+                choix = System.Console.ReadLine();
+                if (choix == "1")
                 {
                     f.Simuler();
                 }
                 else
                 {
-                    if (System.Console.ReadLine() == "2")
+                    if (choix == "2")
                     {
                         System.Console.WriteLine(f.Statistiques());
                     }
                     else
                     {
-                        if (System.Console.ReadLine() == "3")
+                        if (choix == "3")
                         {
                             continu = false;
                         }
