@@ -116,10 +116,18 @@ namespace LibMetier
         {
             foreach (PersonnageAbstrait p in PersonnageAbstraitList)
             {
-                // if fourmi a de la nourriture -> retourner a la fourmiliere
-                
-                // sinon recherche nouritture
-                DeplacerPersonnage(p, p.Position, rechercheNourriture(p));
+                // if fourmi a de la nourriture 
+                if (p.GetFood())
+                {
+                    //retourne à la fourmilière
+                    DeplacerPersonnage(p, p.Position, goHome(p));
+                }
+                else  // sinon recherche nouritture
+                {
+                    DeplacerPersonnage(p, p.Position, rechercheNourriture(p));
+
+                }
+
             }
             
         }
@@ -143,19 +151,32 @@ namespace LibMetier
                         zone.Add(a.fin);
                         if (a.fin == o.Position)
                         {
+                            p.SetFood(true);
                             return a.fin;
                         }
                     }
                 }
             }
             // si aucun objet trouve, la fourni prend un chemin au hasard
+            p.SetFood(false);
+
             resultat = random.Next(0, cpt);
             return zone.ElementAt(resultat);
         }
 
-        public void goHome()
-        {
 
+        //Fonction à finir, créer une variable pour savoir comment les fourmis peuvent rentrer
+        public ZoneAbstraite goHome(PersonnageAbstrait p)
+        {
+            Random random = new Random();
+            int resultat;
+            // liste de chemin disponible
+            List<ZoneAbstraite> zone = new List<ZoneAbstraite>();
+            //la fourni prend un chemin au hasard
+            p.SetFood(false);
+
+            resultat = random.Next(0, 1);
+            return zone.ElementAt(resultat);
         }
     }
 }

@@ -9,6 +9,11 @@ using LibAbstraite;
 namespace AnthillSim.Console
 {
     class Program
+
+    //quand fourmi recherche nourriture verifier si elle a nourriture, si elle a retourne a fourmiliere sinon continue de chercher
+    //quand elle rentre elle dépose phéromone
+    //rajouter constant dans program.cs pour que les fourmis sachent le chemin du retour de la fourmiliere fonction goHome dans fourmiliere
+
     {
         // taille de l'environnement
         public const int maxX = 3;

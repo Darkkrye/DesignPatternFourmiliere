@@ -13,6 +13,18 @@ namespace LibAbstraite
 
 		public abstract ZoneAbstraite Position { get; set; }
 
+          private bool food;
+
+        public override bool GetFood()
+        {
+            return food;
+        }
+
+        public override void SetFood(bool value)
+        {
+            food = value;
+        }
+
 		public abstract ZoneAbstraite ChoixZoneSuivante(List<AccesAbstrait> accesList);
 
         	public abstract void ChangementEtat(EtatFourmiAbstrait etatCourant);

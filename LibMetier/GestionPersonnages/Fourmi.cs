@@ -13,6 +13,9 @@ namespace LibMetier
         public EtatFourmiAbstrait EtatCourant { get; set; }
         public List<AccesAbstrait> pathToFood { get; set; }
 
+      
+
+
         /// <summary>
         /// ajout depuis le cours WPF revérifier plus tard
         /// </summary>
