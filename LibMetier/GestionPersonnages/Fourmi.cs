@@ -5,15 +5,17 @@ using System.Collections.ObjectModel;
 
 namespace LibMetier
 {
-	public class Fourmi : PersonnageAbstrait
-	{
+    public class Fourmi : PersonnageAbstrait
+    {
         private Random rand;
+        public override TypePersonnage Type { get; set; }
         public override ZoneAbstraite Position { get; set; }
-	    public override string Nom { get; set; }
+        public override string Nom { get; set; }
         public EtatFourmiAbstrait EtatCourant { get; set; }
+        // ? Très chiant à parser ...
         public List<AccesAbstrait> pathToFood { get; set; }
 
-      
+
 
 
         /// <summary>
@@ -29,21 +31,28 @@ namespace LibMetier
 
         public Fourmi(string nom, ZoneAbstraite position) : base(nom, position)
         {
-        	//random non fnctionnel ...
-		rand = new Random();
-		//ajout depuis WPF
-		EtapesList = new ObservableCollection<Etape>();
-		//X = rand.Next(0,20);
-		//Y = rand.Next(0,20);
-		EtapesList.Add(new Etape() { NumeroTour = 1, X = X, Y= Y });
-		//Nom = nom;
-		//Affichage = Nom + X + Y;
+            Type = TypePersonnage.Fourmi;
+            //random non fnctionnel ...
+            rand = new Random();
+            //ajout depuis WPF
+            EtapesList = new ObservableCollection<Etape>();
+            //X = rand.Next(0,20);
+            //Y = rand.Next(0,20);
+            EtapesList.Add(new Etape() { NumeroTour = 1, X = X, Y = Y });
+            //Nom = nom;
+            //Affichage = Nom + X + Y;
+
+
         }
 
-	public override ZoneAbstraite ChoixZoneSuivante(List<AccesAbstrait> accesList)
-	{
-		throw new NotImplementedException();
-	}
+        public Fourmi() : base("", null)
+        {
+        }
+
+        public override ZoneAbstraite ChoixZoneSuivante(List<AccesAbstrait> accesList)
+        {
+            throw new NotImplementedException();
+        }
 
         public override void ChangementEtat(EtatFourmiAbstrait etatCourant)
         {
@@ -54,7 +63,7 @@ namespace LibMetier
         /// ajout depuis le cours WPF à mettre dans les design pattern
         /// </summary>
         public void Avance()
-        {}
+        { }
 
 
 

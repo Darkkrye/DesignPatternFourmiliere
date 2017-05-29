@@ -7,7 +7,7 @@ namespace LibAbstraite
 	{
 		protected Random Hasard;
 
-		public enum TypePersonnage { Fourmi };
+		public abstract TypePersonnage Type { get; set; }
 
 		public abstract string Nom { get; set; }
 
@@ -15,12 +15,12 @@ namespace LibAbstraite
 
           private bool food;
 
-        public override bool GetFood()
+        public bool GetFood()
         {
             return food;
         }
 
-        public override void SetFood(bool value)
+        public void SetFood(bool value)
         {
             food = value;
         }

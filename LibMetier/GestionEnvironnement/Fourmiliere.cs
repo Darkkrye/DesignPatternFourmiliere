@@ -7,14 +7,14 @@ namespace LibMetier
 {
 	public class Fourmiliere : EnvironnementAbstrait
 	{
-		List<AccesAbstrait> AccesAbstraitsList;
-		List<ZoneAbstraite> ZoneAbstraiteList;
-		List<ObjetAbstrait> ObjetAbstraitList;
-		List<PersonnageAbstrait> PersonnageAbstraitList;
+		internal List<AccesAbstrait> AccesAbstraitsList;
+		internal List<ZoneAbstraite> ZoneAbstraiteList;
+		internal List<ObjetAbstrait> ObjetAbstraitList;
+		internal List<PersonnageAbstrait> PersonnageAbstraitList;
 
 
 		public Fourmiliere(){
-			AccesAbstraitsList = new List<AccesAbstrait>();
+			 AccesAbstraitsList = new List<AccesAbstrait>();
 			ZoneAbstraiteList = new List<ZoneAbstraite>();
 			ObjetAbstraitList = new List<ObjetAbstrait>();
 			PersonnageAbstraitList = new List<PersonnageAbstrait>();

@@ -58,6 +58,7 @@
                     Margin="5"/>
 
         </Grid>
+        <Button x:Name="Charger" Content="Charger" Grid.Column="2" Grid.Row="2" Margin="2" Click="Charger_Click"  />
 
     </Grid>
 </Window>

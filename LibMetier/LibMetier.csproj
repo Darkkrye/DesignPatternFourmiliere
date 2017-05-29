@@ -30,6 +30,8 @@
   <ItemGroup>
     <Compile Include="Etape.cs" />
     <Compile Include="GestionEtat\EtatFourmiRepos.cs" />
+    <Compile Include="GestionSauvegarde\ParserXML.cs" />
+    <Compile Include="GestionSauvegarde\Reine.cs" />
     <Compile Include="MyClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Fabriques\FabriqueFourmilliere.cs" />

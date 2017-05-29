@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using LibAbstraite;
 
-namespace LibMetier
+namespace LibAbstraite
 {
-    public class EtatFourmiRepos :  EtatFourmiAbstrait
+    public enum TypePersonnage
     {
-    }
+        Fourmi,
+        Reine
+    };
 }

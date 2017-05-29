@@ -29,6 +29,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="GestionEtat\EtatFourmiAbstrait.cs" />
+    <Compile Include="GestionPersonnages\TypePersonnage.cs" />
     <Compile Include="MyClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Fabriques\FabriqueAbstraite.cs" />

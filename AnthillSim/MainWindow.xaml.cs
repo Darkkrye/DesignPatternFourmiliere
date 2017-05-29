@@ -14,6 +14,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
 using System.Threading;
+using Microsoft.Win32;
+using LibMetier;
 
 namespace AnthillSim
 {
@@ -100,6 +102,19 @@ namespace AnthillSim
         private void Stop_Click(object sender, RoutedEventArgs e)
         {
             App.Fourmiliere.Stop();
+        }
+
+
+        private void Charger_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Title = "Charger une Fourmiliere";
+            openFileDialog.Filter = "Fichier XML (*.xml)|*.xml|Tous les fichiers (*.*)|*.*";
+
+            if (openFileDialog.ShowDialog() == true)
+                ParserXML.Charger(openFileDialog.FileName);
+
+
         }
     }
 }
