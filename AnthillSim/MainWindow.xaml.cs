@@ -52,7 +52,7 @@ namespace AnthillSim
                 Plateau.RowDefinitions.Add(new RowDefinition());
             }
 
-            dessineFourmi();
+            //dessineFourmi();
         }
 
         public void dessineFourmi()

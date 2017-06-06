@@ -29,6 +29,8 @@ namespace LibMetier
 
         //vie ; 
 
+        
+
         public Fourmi(string nom, ZoneAbstraite position) : base(nom, position)
         {
             Type = TypePersonnage.Fourmi;

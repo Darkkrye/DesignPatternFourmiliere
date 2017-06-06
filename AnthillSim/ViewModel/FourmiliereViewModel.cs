@@ -25,7 +25,7 @@ namespace AnthillSim
         public FourmilierViewModel()
         {
             NomApplication = "Fourmiliere";
-
+            /*
             ListFourmis = new ObservableCollection<Fourmi>();
             ListFourmis.Add(new Fourmi("Fourmis 0"));
             ListFourmis.Add(new Fourmi("Fourmis 1"));
@@ -34,7 +34,7 @@ namespace AnthillSim
             ListFourmis.Add(new Fourmi("Fourmis 4"));
             ListFourmis.Add(new Fourmi("Fourmis 5"));
 
-            FourmisSelect = new Fourmi("");
+            FourmisSelect = new Fourmi("");*/
             DimensionX = 20;
             DimensionY = 30;
             VitesseExecution = 500;
@@ -43,7 +43,7 @@ namespace AnthillSim
 
         public void AjouteFourmi()
         {
-            ListFourmis.Add(new Fourmi("Fourmis " + ListFourmis.Count()));
+         //   ListFourmis.Add(new Fourmi("Fourmis " + ListFourmis.Count()));
         }
 
         public void DeleteFourmi()
