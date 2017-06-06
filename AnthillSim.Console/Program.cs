@@ -226,7 +226,7 @@ namespace AnthillSim.Console
                 randomX = random.Next(0, maxX);
                 randomY = random.Next(0, maxY);
 
-                f.AjouteObjet(f1.CreerObjet("Nourriture n" + i, ObjetAbstrait.TypeObjet.Nourriture, getZoneFromPosition(randomX, randomY, f)));                
+                f.AjouteObjet(f1.CreerObjet("Nourriture n" + i, TypeObjet.Nourriture, getZoneFromPosition(randomX, randomY, f)));                
             }
         }
 
