@@ -8,7 +8,7 @@ namespace LibAbstraite
 {
     public enum TypePersonnage
     {
-        Fourmi,
+        ChercheuseDeNourriture,
         Reine
     };
 }

@@ -11,6 +11,7 @@ namespace LibMetier
 		internal List<ZoneAbstraite> ZoneAbstraiteList;
 		internal List<ObjetAbstrait> ObjetAbstraitList;
 		internal List<PersonnageAbstrait> PersonnageAbstraitList;
+        internal List<ObjetAbstrait> stock;
 
 
 		public Fourmiliere(){
@@ -18,6 +19,7 @@ namespace LibMetier
 			ZoneAbstraiteList = new List<ZoneAbstraite>();
 			ObjetAbstraitList = new List<ObjetAbstrait>();
 			PersonnageAbstraitList = new List<PersonnageAbstrait>();
+            stock = new List<ObjetAbstrait>();
 		}
 		public override void AjouteChemins(FabriqueAbstraite fabrique, params AccesAbstrait[] accesArray)
 		{
@@ -70,6 +72,14 @@ namespace LibMetier
             AnalyseSituation();
         }
 
+        public List<ObjetAbstrait> getStock() {
+            return stock;
+        }
+
+        public List<ObjetAbstrait> getObjets() {
+            return ObjetAbstraitList;
+        }
+
 		public override string Statistiques()
 		{
 			string result = "";
@@ -101,9 +111,21 @@ namespace LibMetier
 			result += "\nPersonnage : \n";
 			foreach (PersonnageAbstrait a in PersonnageAbstraitList)
 			{
-				result += "Nom = " + a.Nom + ", ";
+                Fourmi fourmi = (Fourmi)a;
+                string nourriture = "Aucune nourriture";
+                if (fourmi.currentFood != null)
+                    nourriture = fourmi.currentFood.Nom; 
+
+                result += "Nom = " + a.Nom + ", Type = " + a.Type.ToString() + ", Transporte = " + nourriture + ", ";
 				result += "Position = " + a.Position.X + ", " + a.Position.Y + "\n";
 			}
+
+			result += "\nStock : \n";
+            foreach (ObjetAbstrait a in stock)
+			{
+				result += "Nom = " + a.Nom + ", \n";
+			}
+
 			return result;
 		}
 
@@ -116,16 +138,23 @@ namespace LibMetier
         {
             foreach (PersonnageAbstrait p in PersonnageAbstraitList)
             {
-                // if fourmi a de la nourriture 
-                if (p.GetFood())
+                if (p.Type == TypePersonnage.ChercheuseDeNourriture)
                 {
-                    //retourne à la fourmilière
-                    DeplacerPersonnage(p, p.Position, goHome(p));
-                }
-                else  // sinon recherche nouritture
-                {
-                    DeplacerPersonnage(p, p.Position, rechercheNourriture(p));
+					// if fourmi a de la nourriture 
+					if (p.GetFood())
+					{
+						//retourne à la fourmilière
+						var zone = goHome(p);
+						if (zone != null)
+						{
+							DeplacerPersonnage(p, p.Position, zone);
+						}
+					}
+					else  // sinon recherche nouritture
+					{
+						DeplacerPersonnage(p, p.Position, rechercheNourriture(p));
 
+					}
                 }
 
             }
@@ -134,6 +163,8 @@ namespace LibMetier
         
         public ZoneAbstraite rechercheNourriture(PersonnageAbstrait p)
         {
+            Fourmi fourmi = (Fourmi)p;
+
             Random random = new Random();
             int resultat;
             // liste de chemin disponible
@@ -142,7 +173,7 @@ namespace LibMetier
             int cpt = 0;
             foreach(AccesAbstrait a in AccesAbstraitsList)
             {
-                if (p.Position == a.debut)
+                if (fourmi.Position == a.debut)
                 {
                     // recherche d'un objet dans les zones autour de la fourmi
                     foreach (ObjetAbstrait o in ObjetAbstraitList)
@@ -151,32 +182,82 @@ namespace LibMetier
                         zone.Add(a.fin);
                         if (a.fin == o.Position)
                         {
-                            p.SetFood(true);
+                            fourmi.SetFood(true); // La fourmi récupère la nourriture
+                            fourmi.currentFood = o;
+                            ObjetAbstraitList.Remove(o); // Elle disparaît de la liste des nourriture.
                             return a.fin;
                         }
                     }
                 }
             }
-            // si aucun objet trouve, la fourni prend un chemin au hasard
-            p.SetFood(false);
 
-            resultat = random.Next(0, cpt);
-            return zone.ElementAt(resultat);
+			// si aucun objet trouve, la fourni prend un chemin au hasard
+			p.SetFood(false);
+
+            if (cpt > 0) // Il reste encore des objets, la fourmi cherche au hasard
+            {
+				resultat = random.Next(0, cpt);
+				return zone.ElementAt(resultat);
+            }
+            else // Il ne reste plus d'objets, la fourmi rentre à la fourmilière
+            {
+				var z = goHome(p);
+                if (z != null)
+                {
+                    return z;
+                }
+            }
+
+            return null;
         }
 
 
         //Fonction à finir, créer une variable pour savoir comment les fourmis peuvent rentrer
         public ZoneAbstraite goHome(PersonnageAbstrait p)
         {
-            Random random = new Random();
-            int resultat;
-            // liste de chemin disponible
-            List<ZoneAbstraite> zone = new List<ZoneAbstraite>();
-            //la fourni prend un chemin au hasard
-            p.SetFood(false);
+            Fourmi fourmi = (Fourmi)p;
 
-            resultat = random.Next(0, 1);
-            return zone.ElementAt(resultat);
+            if (p.Position.X == 0 && p.Position.Y == 0) // La fourmi est à la maison
+            {
+                if (fourmi.GetFood())
+                {
+					fourmi.SetFood(false);
+					this.stock.Add(fourmi.currentFood); // La nourriture est ajoutée aux stocks de la fourmilière.
+					fourmi.currentFood = null; // La fourmi se décharge de sa nourriture
+				}
+
+                if (ObjetAbstraitList.Count() == 0) // Il n'y a plus d'objets à chercher, la fourmi reste à la maison
+                {
+                    foreach(ZoneAbstraite z in ZoneAbstraiteList)
+                    {
+                        if (z.X == 0 && z.Y == 0)
+                        {
+                            return z;
+                        }
+                    }
+                }
+                else // Il reste des objets sur la carte, la fourmi repart
+                   return this.rechercheNourriture(p);
+            }
+
+            foreach(ZoneAbstraite z in ZoneAbstraiteList)
+            {
+                if ((fourmi.Position.X > 0 && fourmi.Position.Y > 0) && (z.X == fourmi.Position.X - 1 && z.Y == fourmi.Position.Y - 1)) // La fourmi se déplace en diagonale
+				{
+					return z;
+				}
+                else if ((fourmi.Position.X > 0 && fourmi.Position.Y == 0) && (z.X == fourmi.Position.X - 1 && z.Y == fourmi.Position.Y)) // La fourmi se déplace vers la droite
+				{
+                    return z;
+				}
+                else if ((fourmi.Position.X == 0 && fourmi.Position.Y > 0) && (z.X == fourmi.Position.X && z.Y == fourmi.Position.Y - 1)) // La fourmi se déplace vers le haut
+				{
+                    return z;
+				}
+            }
+
+            return null;
         }
+
     }
 }

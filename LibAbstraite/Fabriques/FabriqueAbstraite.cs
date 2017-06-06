@@ -7,7 +7,7 @@ namespace LibAbstraite
 		public abstract AccesAbstrait CreerAcces(ZoneAbstraite zdebut, ZoneAbstraite zfin);
 		public abstract EnvironnementAbstrait CreerEnvironnement();
 		public abstract ObjetAbstrait CreerObjet(string nom, ObjetAbstrait.TypeObjet type, ZoneAbstraite position);
-		public abstract PersonnageAbstrait CreerPersonnage(string nom, PersonnageAbstrait.TypePersonnage type, ZoneAbstraite position);
+		public abstract PersonnageAbstrait CreerPersonnage(string nom, TypePersonnage type, ZoneAbstraite position);
         public abstract ZoneAbstraite CreerZone(string nom, int x, int y);
 	}
 }

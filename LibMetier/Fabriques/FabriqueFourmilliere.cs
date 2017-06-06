@@ -35,9 +35,9 @@ namespace LibMetier
 			}
 		}
 
-		public override PersonnageAbstrait CreerPersonnage(string nom, PersonnageAbstrait.TypePersonnage type, ZoneAbstraite position)
+		public override PersonnageAbstrait CreerPersonnage(string nom, TypePersonnage type, ZoneAbstraite position)
 		{
-			if (type == PersonnageAbstrait.TypePersonnage.Fourmi)
+            if (type == TypePersonnage.ChercheuseDeNourriture)
 			{
 				return new Fourmi(nom, position);
 			}

@@ -13,6 +13,8 @@ namespace LibAbstraite
 
 		public abstract ZoneAbstraite Position { get; set; }
 
+
+
           private bool food;
 
         public bool GetFood()

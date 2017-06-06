@@ -58,7 +58,7 @@ namespace LibMetier
                 writer.WriteEndElement();
                 switch (fourmi.Type)
                 {
-                    case TypePersonnage.Fourmi:
+                    case TypePersonnage.ChercheuseDeNourriture:
                         var f = (Fourmi)fourmi;
                         WriteEtat(f.EtatCourant);
                         WriteAcces( f.pathToFood);

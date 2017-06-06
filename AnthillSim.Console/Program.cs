@@ -47,33 +47,39 @@ namespace AnthillSim.Console
                 System.Console.WriteLine("2. statistique tour");
                 System.Console.WriteLine("3. Sauvegarder et quitter");
                 choix = System.Console.ReadLine();
-                if (choix == "1")
+
+                switch (choix)
                 {
-                    f.Simuler();
-                }
-                else
-                {
-                    if (choix == "2")
-                    {
-                        System.Console.WriteLine(f.Statistiques());
-                    }
-                    else
-                    {
-                        if (choix == "3")
-                        {
+                    case "1":
+                        if (f.getStock().Count == nombreObjet && f.getObjets().Count == 0)
                             continu = false;
-                        }
                         else
-                        {
-                            System.Console.WriteLine("Mauvaise reponse!");
-                        }
-                    }
+                            f.Simuler();
+                        break;
+
+                    case "2":
+                        System.Console.WriteLine(f.Statistiques());
+                        break;
+
+                    case "3":
+                        continu = false;
+                        break;
+
+                    default:
+                        System.Console.WriteLine("Mauvaise réponse !");
+                        System.Console.WriteLine();
+                        break;
                 }
             }
 
 
             // affichage statistique
             System.Console.WriteLine("Fin du jeu!");
+            System.Console.WriteLine("Voici les résultats :");
+            System.Console.WriteLine(f.Statistiques());
+            System.Console.WriteLine("");
+			System.Console.WriteLine("AntHillSim par BRUNIE Romain, RUSSIER Salomé, BOUDON Pierre et FOURNIER David");
+			System.Console.WriteLine("Appuyez sur une touche pour fermer");
             System.Console.ReadKey();
 
         }
@@ -108,103 +114,84 @@ namespace AnthillSim.Console
             {
                 for (int j = 0; j < maxY; j++)
                 {
-                    if(i > 0 && j > 0 && i < maxX - 1 && j < maxY - 1)
+                    if (i > 0 && j > 0 && i < maxX - 1 && j < maxY - 1) // Chemins à partir d'une case qui ne touche aucun bord
                     {
-                        cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i + 1, j - 1, f)));
-                        cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i + 1, j, f)));
-                        cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i + 1, j + 1, f)));
-                        cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i, j - 1, f)));
-                        cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i, j + 1, f)));
-                        cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i - 1, j - 1, f)));
-                        cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i - 1, j, f)));
-                        cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i - 1, j +1, f)));
+						cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i + 1, j - 1, f)));
+						cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i + 1, j, f)));
+						cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i + 1, j + 1, f)));
+						cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i, j - 1, f)));
+						cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i, j + 1, f)));
+						cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i - 1, j - 1, f)));
+						cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i - 1, j, f)));
+						cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i - 1, j + 1, f)));
                     }
-                    else
+                    else if (i == 0 && j > 0 && j < maxY - 1) // Chemins à partir d'une case qui touche le bord haut
                     {
-                        if(i == 0 && j > 0 && j < maxY - 1)
-                        {
-                            cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i + 1, j - 1, f)));
-                            cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i + 1, j, f)));
-                            cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i + 1, j + 1, f)));
-                            cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i, j - 1, f)));
-                            cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i, j + 1, f)));
-                        }
-                        else
-                        {
-                            if (i > 0 && j == 0 && i < maxX - 1)
-                            {
-                                cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i + 1, j, f)));
-                                cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i + 1, j + 1, f)));
-                                cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i, j + 1, f)));
-                                cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i - 1, j, f)));
-                                cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i - 1, j + 1, f)));
-                            }
-                            else
-                            {
-                                if (i == maxX - 1 && j == maxY - 1)
-                                {
-                                    cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i, j - 1, f)));
-                                    cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i - 1, j - 1, f)));
-                                    cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i - 1, j, f)));
-                                }
-                                else
-                                {
-                                    if (i == maxX - 1 && j < maxY - 1 && j > 0)
-                                    {
-                                        cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i, j - 1, f)));
-                                        cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i, j + 1, f)));
-                                        cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i - 1, j - 1, f)));
-                                        cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i - 1, j, f)));
-                                        cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i - 1, j + 1, f)));
-                                    }
-                                    else
-                                    {
-                                        if (i < maxX - 1 && j == maxY - 1 && i > 0)
-                                        {
-                                            cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i + 1, j - 1, f)));
-                                            cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i + 1, j, f)));
-                                            cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i, j - 1, f)));
-                                            cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i - 1, j - 1, f)));
-                                            cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i - 1, j, f)));
-                                        }
-                                        else
-                                        {
-                                            if (i == 0 && j == 0)
-                                            {
-                                                cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i + 1, j, f)));
-                                                cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i + 1, j + 1, f)));
-                                                cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i, j + 1, f)));
-                                            }
-                                            else
-                                            {
-                                                if (i == 0 && j == maxY - 1)
-                                                {
-                                                    cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i + 1, j - 1, f)));
-                                                    cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i + 1, j, f)));
-                                                    cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i, j - 1, f)));
-                                                }
-                                                else
-                                                {
-                                                    if (j == 0 && i == maxX - 1)
-                                                    {
-                                                        cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i, j + 1, f)));
-                                                        cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i - 1, j, f)));
-                                                        cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i - 1, j + 1, f)));
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
+						cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i + 1, j - 1, f)));
+						cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i + 1, j, f)));
+						cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i + 1, j + 1, f)));
+						cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i, j - 1, f)));
+						cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i, j + 1, f)));
                     }
-                        /*randomNumber = random.Next(0, 10);
-                        if (randomNumber != 0)
-                        {
-                            
-                        }*/
-                    
+                    else if (i > 0 && j == 0 && i < maxX - 1) // Chemins à partir d'une case qui touche le bord droit
+                    {
+						cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i + 1, j, f)));
+						cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i + 1, j + 1, f)));
+						cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i, j + 1, f)));
+						cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i - 1, j, f)));
+						cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i - 1, j + 1, f)));
+                    }
+                    else if (i == maxX - 1 && j == maxY - 1) // Chemins à partir de la case maxX.maxY
+                    {
+						cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i, j - 1, f)));
+						cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i - 1, j - 1, f)));
+						cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i - 1, j, f)));
+                    }
+                    else if (i == maxX - 1 && j < maxY - 1 && j > 0) // Chemins à partir d'une case qui touche le bord bas
+                    {
+						cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i, j - 1, f)));
+						cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i, j + 1, f)));
+						cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i - 1, j - 1, f)));
+						cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i - 1, j, f)));
+						cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i - 1, j + 1, f)));
+                    }
+					else if (i < maxX - 1 && j == maxY - 1 && i > 0) // Chemins à partir d'une case qui touche le bord droit
+					{
+						cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i + 1, j - 1, f)));
+						cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i + 1, j, f)));
+						cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i, j - 1, f)));
+						cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i - 1, j - 1, f)));
+						cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i - 1, j, f)));
+					}
+					else if (i == 0 && j == 0) // Chemins à partir de la case 0.0
+					{
+						cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i + 1, j, f)));
+						cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i + 1, j + 1, f)));
+						cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i, j + 1, f)));
+					}
+					else if (i == 0 && j == maxY - 1) // Chemins à partir de la case 0.maxY
+					{
+						cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i + 1, j - 1, f)));
+						cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i + 1, j, f)));
+						cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i, j - 1, f)));
+					}
+					else if (j == 0 && i == maxX - 1) // Chemins à partir de la case maxX.0
+					{
+						cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i, j + 1, f)));
+						cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i - 1, j, f)));
+						cheminList.Add(f1.CreerAcces(getZoneFromPosition(i, j, f), getZoneFromPosition(i - 1, j + 1, f)));
+					}
+                    else 
+                    {
+                        System.Console.WriteLine("Rien ne s'est passé");
+                    }
+
+                    /*randomNumber = random.Next(0, 10);
+                    if (randomNumber != 0)
+                    {
+
+                    }*/
+
                 }
             }
             // add the list of access to an array of access
@@ -220,14 +207,9 @@ namespace AnthillSim.Console
         void CreationPersonnages(FabriqueAbstraite f1, Fourmiliere f)
         {
             // creation fourmi
-            Random random = new Random();
-            int randomX, randomY;
-            
             for (int i = 0; i < nombreFourmi; i++)
             {
-                randomX = random.Next(0, maxX);
-                randomY = random.Next(0, maxY);
-                f.AjoutePersonnage(f1.CreerPersonnage("Fourmi n" + i, PersonnageAbstrait.TypePersonnage.Fourmi, getZoneFromPosition(randomX, randomY, f)));
+                f.AjoutePersonnage(f1.CreerPersonnage("Fourmi n" + i, TypePersonnage.ChercheuseDeNourriture, getZoneFromPosition(0, 0, f)));
             }
         }
 
@@ -243,22 +225,8 @@ namespace AnthillSim.Console
                 randomObjet = random.Next(0, 3);
                 randomX = random.Next(0, maxX);
                 randomY = random.Next(0, maxY);
-                
-                if (randomObjet == 0)
-                {
-                    f.AjouteObjet(f1.CreerObjet("Nourriture n" + i, ObjetAbstrait.TypeObjet.Nourriture, getZoneFromPosition(randomX, randomY, f)));
-                }
-                else
-                {
-                    if (randomObjet == 1)
-                    {
-                        f.AjouteObjet(f1.CreerObjet("Oeuf n" + i, ObjetAbstrait.TypeObjet.Oeuf, getZoneFromPosition(randomX, randomY, f)));
-                    }else
-                    {
-                        f.AjouteObjet(f1.CreerObjet("Pheromone n" + i, ObjetAbstrait.TypeObjet.Pheromone, getZoneFromPosition(randomX, randomY, f)));
-                    }
-                }
-                
+
+                f.AjouteObjet(f1.CreerObjet("Nourriture n" + i, ObjetAbstrait.TypeObjet.Nourriture, getZoneFromPosition(randomX, randomY, f)));                
             }
         }
 
