@@ -3,7 +3,7 @@ namespace LibAbstraite
 {
 	public abstract class ObjetAbstrait
 	{
-		public enum TypeObjet { Nourriture, Oeuf, Pheromone };
+		public abstract TypeObjet Type { get; set; }
 
 		public abstract string Nom { get; set; }
 

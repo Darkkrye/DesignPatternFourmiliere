@@ -102,9 +102,29 @@ namespace LibMetier
 
         }
 
-        private static void WriteObjet(List<ObjetAbstrait> personnages)
+        private static void WriteObjet(List<ObjetAbstrait> objets)
         {
-
+            writer.WriteStartElement("ObjetAbstrait");
+            foreach (var obj in objets)
+            {
+                writer.WriteStartElement("Objet");
+                switch (obj.Type)
+                {/*
+                    case TypeObjet:
+                        var f = (Fourmi)fourmi;
+                        WriteEtat(f.EtatCourant);
+                        WriteAcces(f.pathToFood);
+                        break;
+                    case TypePersonnage.Reine:
+                        var r = (Reine)fourmi;
+                        // TODO : all
+                        break;
+                    default:
+                        break;*/
+                }
+                writer.WriteEndElement();
+            }
+            writer.WriteEndElement();
 
         }
 
