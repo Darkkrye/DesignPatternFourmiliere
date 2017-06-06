@@ -27,13 +27,14 @@ namespace AnthillSim
         public MainWindow()
         {
             InitializeComponent();
+            WindowState = WindowState.Maximized;
             DataContext = App.Fourmiliere;
             Add.Click += Add_Click;
             Remove.Click += Remove_Click;
             //AproposBtn.Click += Apropos_Click;
             TourSuivant.Click += TourSuivant_Click;
             dessine();
-            Plateau.Background = new SolidColorBrush(Colors.Green);
+            Plateau.Background = new SolidColorBrush(Colors.SaddleBrown);
         }
 
         private void dessine()
@@ -53,22 +54,42 @@ namespace AnthillSim
             }
 
             dessineFourmi();
+            dessineObjet();
         }
 
         public void dessineFourmi()
         {
             foreach (var item in App.Fourmiliere.ListFourmis)
             {
+
                 /*  Ellipse e = new Ellipse();
                   e.Fill = new SolidColorBrush(Colors.AliceBlue);
                   e.Margin = new Thickness(3);*/
                 var e = new Image();
-                e.Source = new BitmapImage(new Uri("Ressources/ant.png", UriKind.Relative));
+                if (item.GetFood())
+                    e.Source = new BitmapImage(new Uri("Ressources/antWithSalade.png", UriKind.Relative));
+                else
+                    e.Source = new BitmapImage(new Uri("Ressources/ant.png", UriKind.Relative));
+
                 Plateau.Children.Add(e);
                 Grid.SetColumn(e, item.Position.X);
                 Grid.SetRow(e, item.Position.Y);
             }
         }
+
+        public void dessineObjet()
+        {
+            foreach (var item in App.Fourmiliere.ListObjet)
+            {
+
+                var e = new Image();
+                e.Source = new BitmapImage(new Uri("Ressources/salade.png", UriKind.Relative));
+                Plateau.Children.Add(e);
+                Grid.SetColumn(e, item.Position.X);
+                Grid.SetRow(e, item.Position.Y);
+            }
+        }
+
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {

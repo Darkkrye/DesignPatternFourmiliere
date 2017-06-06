@@ -97,7 +97,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Ressources\salade.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Ressources\ant.png" />
   </ItemGroup>
@@ -110,6 +112,9 @@
       <Project>{1f7c1499-f7e3-41df-8357-7569c9e58b02}</Project>
       <Name>LibMetier</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Ressources\antWithSalade.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

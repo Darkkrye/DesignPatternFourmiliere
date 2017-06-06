@@ -80,7 +80,14 @@ namespace LibMetier
             return ObjetAbstraitList;
         }
 
-		public override string Statistiques()
+        public List<PersonnageAbstrait> getPersonnages()
+        {
+            return PersonnageAbstraitList;
+
+        }
+
+
+        public override string Statistiques()
 		{
 			string result = "";
 

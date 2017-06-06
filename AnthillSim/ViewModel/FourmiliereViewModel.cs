@@ -13,7 +13,8 @@ namespace AnthillSim
     public class FourmilierViewModel : ViewModelBase
     {
         public string NomApplication { get; set; }
-        public ObservableCollection<PersonnageAbstrait> ListFourmis { get; set; }
+        public List<PersonnageAbstrait> ListFourmis { get; set; }
+        public List<ObjetAbstrait> ListObjet { get; set; }
         public Fourmi FourmisSelect { get; set; }
 
         public int DimensionX { get; set; }
@@ -30,17 +31,22 @@ namespace AnthillSim
 
         public FourmilierViewModel()
         {
-            
 
             NomApplication = "Fourmiliere";
-            DimensionX = 3;
-            DimensionY = 3;
-            NbrObjet = 3;
-            NbrFourmi = 2;
+            DimensionX = 15;
+            DimensionY = 15;
+            NbrObjet = 7;
+            NbrFourmi = 3;
             VitesseExecution = 500;
             
             InitFourmiliere();
 
+        }
+
+        public void Refresh() {
+
+            ListObjet = Fourmiliere.getObjets();
+            ListFourmis = Fourmiliere.getPersonnages();
         }
 
         public void InitFourmiliere()
@@ -51,6 +57,7 @@ namespace AnthillSim
             CreationZonesAcces();
             CreationPersonnages();
             CreationObjets();
+            Refresh();
 
         }
 
@@ -178,18 +185,13 @@ namespace AnthillSim
 
         public void CreationPersonnages()
         {
-            ListFourmis = new ObservableCollection<PersonnageAbstrait>();
+            ListFourmis = new List<PersonnageAbstrait>();
             for (int i = 0; i < NbrFourmi; i++)
             {
-                PersonnageAbstrait f = Fabrique.CreerPersonnage("Fourmi n" + i, TypePersonnage.ChercheuseDeNourriture,
-                                            getZoneFromPosition(0, 0)
-                                            );
-                ListFourmis.Add(f);
-
-                Fourmiliere.AjoutePersonnage(f);
-
+                AjouteFourmi(i);
 
             }
+
 
         }
 
@@ -198,6 +200,7 @@ namespace AnthillSim
             // creation objet
             Random random = new Random();
             int randomObjet, randomX, randomY;
+            ListObjet = new List<ObjetAbstrait>();
 
             // les type d'objets sont cree aleatoirement
             for (int i = 0; i < NbrObjet; i++)
@@ -206,8 +209,13 @@ namespace AnthillSim
                 randomX = random.Next(0, DimensionX);
                 randomY = random.Next(0, DimensionY);
 
-                Fourmiliere.AjouteObjet(Fabrique.CreerObjet("Nourriture n" + i, TypeObjet.Nourriture, getZoneFromPosition(randomX, randomY)));
+                ObjetAbstrait obj = Fabrique.CreerObjet("Nourriture n" + i, TypeObjet.Nourriture, getZoneFromPosition(randomX, randomY));
+
+                ListObjet.Add(obj);
+                Fourmiliere.AjouteObjet(obj);
+                
             }
+          
         }
 
         public ZoneAbstraite getZoneFromPosition(int x, int y)
@@ -225,9 +233,15 @@ namespace AnthillSim
 
 
 
-        public void AjouteFourmi()
+        public void AjouteFourmi(int i=-1)
         {
-            //   ListFourmis.Add(new Fourmi("Fourmis " + ListFourmis.Count()));
+            i = (i != -1) ? i : ListFourmis.Count + 1;
+            PersonnageAbstrait f = Fabrique.CreerPersonnage("Fourmi n" + i, TypePersonnage.ChercheuseDeNourriture,
+                                         getZoneFromPosition(0, 0)
+                                         );
+
+            Fourmiliere.AjoutePersonnage(f);
+
         }
 
         public void DeleteFourmi()
@@ -244,6 +258,7 @@ namespace AnthillSim
                 continu = false;
             else
                 Fourmiliere.Simuler();
+            Refresh();
 
             /*
             foreach (var item in ListFourmis)
@@ -265,6 +280,7 @@ namespace AnthillSim
                 TourSuivant();
 
             }
+            Refresh();
 
         }
 
