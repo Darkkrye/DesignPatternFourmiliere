@@ -14,6 +14,7 @@ namespace LibMetier
         public EtatFourmiAbstrait EtatCourant { get; set; }
         // ? Très chiant à parser ...
         public List<AccesAbstrait> pathToFood { get; set; }
+        public ObjetAbstrait currentFood { get; set; }
 
 
 
@@ -33,7 +34,7 @@ namespace LibMetier
 
         public Fourmi(string nom, ZoneAbstraite position) : base(nom, position)
         {
-            Type = TypePersonnage.Fourmi;
+            Type = TypePersonnage.ChercheuseDeNourriture;
             //random non fnctionnel ...
             rand = new Random();
             //ajout depuis WPF
@@ -43,9 +44,21 @@ namespace LibMetier
             EtapesList.Add(new Etape() { NumeroTour = 1, X = X, Y = Y });
             //Nom = nom;
             //Affichage = Nom + X + Y;
-
-
         }
+
+        public Fourmi(string nom, ZoneAbstraite position, TypePersonnage typeP) : base(nom, position)
+		{
+			Type = typeP;
+			//random non fnctionnel ...
+			rand = new Random();
+			//ajout depuis WPF
+			EtapesList = new ObservableCollection<Etape>();
+			//X = rand.Next(0,20);
+			//Y = rand.Next(0,20);
+			EtapesList.Add(new Etape() { NumeroTour = 1, X = X, Y = Y });
+			//Nom = nom;
+			//Affichage = Nom + X + Y;
+		}
 
         public Fourmi() : base("", null)
         {
