@@ -41,7 +41,7 @@
         <!-- Grid.ColumnSpan="3"-->
         <TextBlock Text="{Binding FourmisSelect.Nom}" Grid.Column="2" Grid.Row="1" />
 
-        <Button x:Name="AproposBtn" Grid.Column="2" Grid.Row="3" Margin="10"  />
+        <Button x:Name="AproposBtn" Content="A propos" Grid.Column="2" Grid.Row="3" Margin="2"  />
 
         <Grid x:Name="Plateau" ShowGridLines="True" Grid.Column="1" Grid.Row="1"></Grid>
         <Grid x:Name="Control" ShowGridLines="True" Grid.Column="1" Grid.Row="2">

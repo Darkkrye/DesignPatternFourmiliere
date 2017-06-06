@@ -52,7 +52,7 @@ namespace AnthillSim
                 Plateau.RowDefinitions.Add(new RowDefinition());
             }
 
-            //dessineFourmi();
+            dessineFourmi();
         }
 
         public void dessineFourmi()
@@ -65,8 +65,8 @@ namespace AnthillSim
                 var e = new Image();
                 e.Source = new BitmapImage(new Uri("Ressources/ant.png", UriKind.Relative));
                 Plateau.Children.Add(e);
-                Grid.SetColumn(e, item.X);
-                Grid.SetRow(e, item.Y);
+                Grid.SetColumn(e, item.Position.X);
+                Grid.SetRow(e, item.Position.Y);
             }
         }
 
@@ -90,6 +90,7 @@ namespace AnthillSim
         private void TourSuivant_Click(object sender, RoutedEventArgs e)
         {
             App.Fourmiliere.TourSuivant();
+            dessine();
 
         }
 
