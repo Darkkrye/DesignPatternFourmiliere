@@ -10,6 +10,7 @@ namespace LibAbstraite
         public abstract string Nom { get; set; }
         public abstract int X { get; set; }
         public abstract int Y { get; set; }
+        public abstract bool isOccuped { get; set; }
 
         protected ZoneAbstraite(string unNom, int x, int y)
 		{

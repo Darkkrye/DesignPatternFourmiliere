@@ -39,6 +39,7 @@ namespace AnthillSim
 
         private void dessine()
         {
+            App.Fourmiliere.Refresh();
             Plateau.RowDefinitions.Clear();
             Plateau.ColumnDefinitions.Clear();
             Plateau.Children.Clear();

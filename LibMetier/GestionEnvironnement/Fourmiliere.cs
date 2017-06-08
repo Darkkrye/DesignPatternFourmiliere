@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using LibAbstraite;
 using System.Linq;
+using System.Diagnostics;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace LibMetier
 {
@@ -169,8 +172,9 @@ namespace LibMetier
                     }
                     else  // sinon recherche nouritture
                     {
-                        DeplacerPersonnage(p, p.Position, rechercheNourriture(p));
-
+                        var pos = rechercheNourriture(p);
+                        if (pos != null)
+                            DeplacerPersonnage(p, p.Position, pos);
                     }
                 }
 
@@ -181,9 +185,6 @@ namespace LibMetier
         public ZoneAbstraite rechercheNourriture(PersonnageAbstrait p)
         {
             Fourmi fourmi = (Fourmi)p;
-            // boolean si 2 fourmis sont sur la mm zone
-            bool mmZone = false;
-
             Random random = new Random();
             int resultat;
             // liste de chemin disponible
@@ -216,29 +217,21 @@ namespace LibMetier
             if (cpt > 0) // Il reste encore des objets, la fourmi cherche au hasard
             {
                 resultat = random.Next(0, cpt);
-                // parcours les fourmis pour ne pas en avoir 2 sur la mm zone, si oui recupere une nouvelle position un random
-                int i = 0;
-                do
+                ZoneAbstraite za = zone.ElementAt(resultat);
+                if (!za.isOccuped)
                 {
-                    foreach (PersonnageAbstrait o in PersonnageAbstraitList)
+                    foreach(ZoneAbstraite zz in ZoneAbstraiteList)
                     {
-                        if (o.Position == zone.ElementAt(resultat))
-                        {
-                            resultat = random.Next(0, cpt);
-                            i++;
+                        if (zz.X == p.Position.X && zz.Y == p.Position.Y) {
+                            zz.isOccuped = false;
                         }
                     }
-                    if (i == 0)
-                    {
-                        mmZone = true;
-                    }
-                    else
-                    {
-                        mmZone = false;
-                    }
-                } while (!mmZone);
 
-                return zone.ElementAt(resultat);
+                    za.isOccuped = true;
+                    return za;
+                }
+                else
+                    return null;
             }
             else // Il ne reste plus d'objets, la fourmi rentre à la fourmilière
             {
@@ -283,18 +276,30 @@ namespace LibMetier
 
             foreach (ZoneAbstraite z in ZoneAbstraiteList)
             {
-                if ((fourmi.Position.X > this.Position.X && fourmi.Position.Y > this.Position.Y) && (z.X == fourmi.Position.X - 1 && z.Y == fourmi.Position.Y - 1)) // La fourmi se déplace en diagonale haute gauche
-                {
+                // La fourmi se déplace en diagonale haute gauche
+                if ((fourmi.Position.X > this.Position.X && fourmi.Position.Y > this.Position.Y) && (z.X == fourmi.Position.X - 1 && z.Y == fourmi.Position.Y - 1))
                     return z;
-                }
-                else if ((fourmi.Position.X > this.Position.X && fourmi.Position.Y == this.Position.Y) && (z.X == fourmi.Position.X - 1 && z.Y == fourmi.Position.Y)) // La fourmi se déplace vers la gauche
-                {
+                // La fourmi se déplace en diagonale haute droite
+                else if ((fourmi.Position.X < this.Position.X && fourmi.Position.Y > this.Position.Y) && (z.X == fourmi.Position.X + 1 && z.Y == fourmi.Position.Y - 1))
                     return z;
-                }
-                else if ((fourmi.Position.X == this.Position.X && fourmi.Position.Y > this.Position.Y) && (z.X == fourmi.Position.X && z.Y == fourmi.Position.Y - 1)) // La fourmi se déplace vers le haut
-                {
+                // La fourmi se déplace en diagonale basse droite
+                else if ((fourmi.Position.X < this.Position.X && fourmi.Position.Y < this.Position.Y) && (z.X == fourmi.Position.X + 1 && z.Y == fourmi.Position.Y + 1))
                     return z;
-                }
+                // La fourmi se déplace en diagonale basse gauche
+                else if ((fourmi.Position.X > this.Position.X && fourmi.Position.Y < this.Position.Y) && (z.X == fourmi.Position.X - 1 && z.Y == fourmi.Position.Y + 1))
+                    return z;
+                // La fourmi se déplace vers la gauche
+                else if ((fourmi.Position.X > this.Position.X && fourmi.Position.Y == this.Position.Y) && (z.X == fourmi.Position.X - 1 && z.Y == fourmi.Position.Y))
+                    return z;
+                // La fourmi se déplace vers la droite
+                else if ((fourmi.Position.X < this.Position.X && fourmi.Position.Y == this.Position.Y) && (z.X == fourmi.Position.X + 1 && z.Y == fourmi.Position.Y))
+                    return z;
+                // La fourmi se déplace vers le haut
+                else if ((fourmi.Position.X == this.Position.X && fourmi.Position.Y > this.Position.Y) && (z.X == fourmi.Position.X && z.Y == fourmi.Position.Y - 1))
+                    return z;
+                // La fourmi se déplace vers le bas
+                else if ((fourmi.Position.X == this.Position.X && fourmi.Position.Y < this.Position.Y) && (z.X == fourmi.Position.X && z.Y == fourmi.Position.Y +1))
+                    return z;
             }
 
             return null;
