@@ -31,7 +31,8 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Image Source="Ressources/ant.png" Height="20" />
-                        
+                      
+                      
                         <TextBlock Text="{Binding Affichage}" Grid.Column="1" Grid.Row="0" />
                     </Grid>
                 </DataTemplate>

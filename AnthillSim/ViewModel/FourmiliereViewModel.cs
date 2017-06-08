@@ -16,7 +16,6 @@ namespace AnthillSim
         public List<PersonnageAbstrait> ListFourmis { get; set; }
         public List<ObjetAbstrait> ListObjet { get; set; }
         public Fourmi FourmisSelect { get; set; }
-
         public int DimensionX { get; set; }
         public int DimensionY { get; set; }
         public int NbrObjet { get; set; }
@@ -31,19 +30,19 @@ namespace AnthillSim
 
         public FourmilierViewModel()
         {
-
             NomApplication = "Fourmiliere";
             DimensionX = 15;
             DimensionY = 15;
             NbrObjet = 7;
             NbrFourmi = 3;
             VitesseExecution = 500;
-            
+
             InitFourmiliere();
 
         }
 
-        public void Refresh() {
+        public void Refresh()
+        {
 
             ListObjet = Fourmiliere.getObjets();
             ListFourmis = Fourmiliere.getPersonnages();
@@ -180,6 +179,11 @@ namespace AnthillSim
             // j'ajoute la liste de chemin a l'envirronement
             Fourmiliere.AjouteChemins(Fabrique, chemins);
 
+            //Random position Fourmiliere
+
+            Fourmiliere.Position = getZoneFromPosition(random.Next(0, DimensionX), random.Next(0, DimensionY));
+          //  Fourmiliere.Position.Y = random.Next(0, DimensionY);
+
 
         }
 
@@ -213,9 +217,9 @@ namespace AnthillSim
 
                 ListObjet.Add(obj);
                 Fourmiliere.AjouteObjet(obj);
-                
+
             }
-          
+
         }
 
         public ZoneAbstraite getZoneFromPosition(int x, int y)
@@ -233,11 +237,12 @@ namespace AnthillSim
 
 
 
-        public void AjouteFourmi(int i=-1)
+        public void AjouteFourmi(int i = -1)
         {
             i = (i != -1) ? i : ListFourmis.Count + 1;
             PersonnageAbstrait f = Fabrique.CreerPersonnage("Fourmi n" + i, TypePersonnage.ChercheuseDeNourriture,
-                                         getZoneFromPosition(0, 0)
+                                         Fourmiliere.Position
+
                                          );
 
             Fourmiliere.AjoutePersonnage(f);

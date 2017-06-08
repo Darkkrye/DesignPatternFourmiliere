@@ -5,78 +5,87 @@ using System.Linq;
 
 namespace LibMetier
 {
-	public class Fourmiliere : EnvironnementAbstrait
-	{
-		internal List<AccesAbstrait> AccesAbstraitsList;
-		internal List<ZoneAbstraite> ZoneAbstraiteList;
-		internal List<ObjetAbstrait> ObjetAbstraitList;
-		internal List<PersonnageAbstrait> PersonnageAbstraitList;
+    public class Fourmiliere : EnvironnementAbstrait
+    {
+        internal List<AccesAbstrait> AccesAbstraitsList;
+        internal List<ZoneAbstraite> ZoneAbstraiteList;
+        internal List<ObjetAbstrait> ObjetAbstraitList;
+        internal List<PersonnageAbstrait> PersonnageAbstraitList;
         internal List<ObjetAbstrait> stock;
+        public ZoneAbstraite Position { get; set; }
 
 
-		public Fourmiliere(){
-			 AccesAbstraitsList = new List<AccesAbstrait>();
-			ZoneAbstraiteList = new List<ZoneAbstraite>();
-			ObjetAbstraitList = new List<ObjetAbstrait>();
-			PersonnageAbstraitList = new List<PersonnageAbstrait>();
+        public Fourmiliere()
+        {
+
+            AccesAbstraitsList = new List<AccesAbstrait>();
+            ZoneAbstraiteList = new List<ZoneAbstraite>();
+            ObjetAbstraitList = new List<ObjetAbstrait>();
+            PersonnageAbstraitList = new List<PersonnageAbstrait>();
             stock = new List<ObjetAbstrait>();
-		}
-		public override void AjouteChemins(FabriqueAbstraite fabrique, params AccesAbstrait[] accesArray)
-		{
-			foreach (AccesAbstrait acces in accesArray)
-			{
-                
-				AccesAbstraitsList.Add(acces);
-			}
-		}
 
-		public override void AjouteObjet(ObjetAbstrait unObjet)
-		{
-			ObjetAbstraitList.Add(unObjet);
-		}
 
-		public override void AjoutePersonnage(PersonnageAbstrait unPersonnage)
-		{
-			PersonnageAbstraitList.Add(unPersonnage);
-		}
 
-		public override void AjouteZoneAbstraits(params ZoneAbstraite[] zoneAbstraitsArray)
-		{
-			foreach(ZoneAbstraite zone in zoneAbstraitsArray){
-				ZoneAbstraiteList.Add(zone);
-			}
-		}
+        }
+        public override void AjouteChemins(FabriqueAbstraite fabrique, params AccesAbstrait[] accesArray)
+        {
+            foreach (AccesAbstrait acces in accesArray)
+            {
 
-		public override void ChargerEnvironnement(FabriqueAbstraite fabrique)
-		{
-			throw new NotImplementedException();
-		}
+                AccesAbstraitsList.Add(acces);
+            }
+        }
 
-		public override void ChargerObjets(FabriqueAbstraite fabrique)
-		{
-			throw new NotImplementedException();
-		}
+        public override void AjouteObjet(ObjetAbstrait unObjet)
+        {
+            ObjetAbstraitList.Add(unObjet);
+        }
 
-		public override void ChargerPersonnages(FabriqueAbstraite fabrique)
-		{
-			throw new NotImplementedException();
-		}
+        public override void AjoutePersonnage(PersonnageAbstrait unPersonnage)
+        {
+            PersonnageAbstraitList.Add(unPersonnage);
+        }
 
-		public override void DeplacerPersonnage(PersonnageAbstrait unPersonnage, ZoneAbstraite zoneSource, ZoneAbstraite zoneFin)
-		{
-			unPersonnage.Position = zoneFin;
-		}
+        public override void AjouteZoneAbstraits(params ZoneAbstraite[] zoneAbstraitsArray)
+        {
+            foreach (ZoneAbstraite zone in zoneAbstraitsArray)
+            {
+                ZoneAbstraiteList.Add(zone);
+            }
+        }
 
-		public override void Simuler()
-		{
+        public override void ChargerEnvironnement(FabriqueAbstraite fabrique)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void ChargerObjets(FabriqueAbstraite fabrique)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void ChargerPersonnages(FabriqueAbstraite fabrique)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void DeplacerPersonnage(PersonnageAbstrait unPersonnage, ZoneAbstraite zoneSource, ZoneAbstraite zoneFin)
+        {
+            unPersonnage.Position = zoneFin;
+        }
+
+        public override void Simuler()
+        {
             AnalyseSituation();
         }
 
-        public List<ObjetAbstrait> getStock() {
+        public List<ObjetAbstrait> getStock()
+        {
             return stock;
         }
 
-        public List<ObjetAbstrait> getObjets() {
+        public List<ObjetAbstrait> getObjets()
+        {
             return ObjetAbstraitList;
         }
 
@@ -88,53 +97,54 @@ namespace LibMetier
 
 
         public override string Statistiques()
-		{
-			string result = "";
+        {
+            string result = "";
 
             result += "\nZone : \n";
             foreach (ZoneAbstraite a in ZoneAbstraiteList)
             {
                 result += "Nom = " + a.Nom + ", ";
-                result += "Position = " + a.X + ", "  + a.Y + "\n";
+                result += "Position = " + a.X + ", " + a.Y + "\n";
 
             }
 
             result += "Acces : \n";
-			foreach(AccesAbstrait a in AccesAbstraitsList){
-                if(a != null)
+            foreach (AccesAbstrait a in AccesAbstraitsList)
+            {
+                if (a != null)
                 {
                     result += "Début = " + a.debut.Nom + ", ";
                     result += "Fin = " + a.fin.Nom + "\n";
                 }
-			}
+            }
 
-			result += "\nObjet : \n";
-			foreach (ObjetAbstrait a in ObjetAbstraitList)
-			{
-				result += "Nom = " + a.Nom + ", ";
-				result += "Position = " + a.Position.X + ", " + a.Position.Y + "\n";
-			}
+            result += "\nObjet : \n";
+            foreach (ObjetAbstrait a in ObjetAbstraitList)
+            {
+                result += "Nom = " + a.Nom + ", ";
+                result += "Position = " + a.Position.X + ", " + a.Position.Y + "\n";
+            }
 
-			result += "\nPersonnage : \n";
-			foreach (PersonnageAbstrait a in PersonnageAbstraitList)
-			{
+            result += "\nPersonnage : \n";
+            foreach (PersonnageAbstrait a in PersonnageAbstraitList)
+            {
                 Fourmi fourmi = (Fourmi)a;
                 string nourriture = "Aucune nourriture";
                 if (fourmi.currentFood != null)
-                    nourriture = fourmi.currentFood.Nom; 
+                    nourriture = fourmi.currentFood.Nom;
 
                 result += "Nom = " + a.Nom + ", Type = " + a.Type.ToString() + ", Transporte = " + nourriture + ", ";
-				result += "Position = " + a.Position.X + ", " + a.Position.Y + "\n";
-			}
+                result += "Position = " + a.Position.X + ", " + a.Position.Y + "\n";
+            }
 
-			result += "\nStock : \n";
+            result += "\nStock : \n";
             foreach (ObjetAbstrait a in stock)
-			{
-				result += "Nom = " + a.Nom + ", \n";
-			}
+            {
+                result += "Nom = " + a.Nom + ", \n";
+            }
 
-			return result;
-		}
+            return result;
+        }
 
         public List<ZoneAbstraite> getZoneAbstraiteList()
         {
@@ -147,30 +157,32 @@ namespace LibMetier
             {
                 if (p.Type == TypePersonnage.ChercheuseDeNourriture)
                 {
-					// if fourmi a de la nourriture 
-					if (p.GetFood())
-					{
-						//retourne à la fourmilière
-						var zone = goHome(p);
-						if (zone != null)
-						{
-							DeplacerPersonnage(p, p.Position, zone);
-						}
-					}
-					else  // sinon recherche nouritture
-					{
-						DeplacerPersonnage(p, p.Position, rechercheNourriture(p));
+                    // if fourmi a de la nourriture 
+                    if (p.GetFood())
+                    {
+                        //retourne à la fourmilière
+                        var zone = goHome(p);
+                        if (zone != null)
+                        {
+                            DeplacerPersonnage(p, p.Position, zone);
+                        }
+                    }
+                    else  // sinon recherche nouritture
+                    {
+                        DeplacerPersonnage(p, p.Position, rechercheNourriture(p));
 
-					}
+                    }
                 }
 
             }
-            
+
         }
-        
+
         public ZoneAbstraite rechercheNourriture(PersonnageAbstrait p)
         {
             Fourmi fourmi = (Fourmi)p;
+            // boolean si 2 fourmis sont sur la mm zone
+            bool mmZone = false;
 
             Random random = new Random();
             int resultat;
@@ -178,7 +190,7 @@ namespace LibMetier
             List<ZoneAbstraite> zone = new List<ZoneAbstraite>();
             // compteur de chemin disponible
             int cpt = 0;
-            foreach(AccesAbstrait a in AccesAbstraitsList)
+            foreach (AccesAbstrait a in AccesAbstraitsList)
             {
                 if (fourmi.Position == a.debut)
                 {
@@ -198,17 +210,39 @@ namespace LibMetier
                 }
             }
 
-			// si aucun objet trouve, la fourni prend un chemin au hasard
-			p.SetFood(false);
+            // si aucun objet trouve, la fourni prend un chemin au hasard
+            p.SetFood(false);
 
             if (cpt > 0) // Il reste encore des objets, la fourmi cherche au hasard
             {
-				resultat = random.Next(0, cpt);
-				return zone.ElementAt(resultat);
+                resultat = random.Next(0, cpt);
+                // parcours les fourmis pour ne pas en avoir 2 sur la mm zone, si oui recupere une nouvelle position un random
+                int i = 0;
+                do
+                {
+                    foreach (PersonnageAbstrait o in PersonnageAbstraitList)
+                    {
+                        if (o.Position == zone.ElementAt(resultat))
+                        {
+                            resultat = random.Next(0, cpt);
+                            i++;
+                        }
+                    }
+                    if (i == 0)
+                    {
+                        mmZone = true;
+                    }
+                    else
+                    {
+                        mmZone = false;
+                    }
+                } while (!mmZone);
+
+                return zone.ElementAt(resultat);
             }
             else // Il ne reste plus d'objets, la fourmi rentre à la fourmilière
             {
-				var z = goHome(p);
+                var z = goHome(p);
                 if (z != null)
                 {
                     return z;
@@ -228,14 +262,14 @@ namespace LibMetier
             {
                 if (fourmi.GetFood())
                 {
-					fourmi.SetFood(false);
-					this.stock.Add(fourmi.currentFood); // La nourriture est ajoutée aux stocks de la fourmilière.
-					fourmi.currentFood = null; // La fourmi se décharge de sa nourriture
-				}
+                    fourmi.SetFood(false);
+                    this.stock.Add(fourmi.currentFood); // La nourriture est ajoutée aux stocks de la fourmilière.
+                    fourmi.currentFood = null; // La fourmi se décharge de sa nourriture
+                }
 
                 if (ObjetAbstraitList.Count() == 0) // Il n'y a plus d'objets à chercher, la fourmi reste à la maison
                 {
-                    foreach(ZoneAbstraite z in ZoneAbstraiteList)
+                    foreach (ZoneAbstraite z in ZoneAbstraiteList)
                     {
                         if (z.X == 0 && z.Y == 0)
                         {
@@ -244,23 +278,23 @@ namespace LibMetier
                     }
                 }
                 else // Il reste des objets sur la carte, la fourmi repart
-                   return this.rechercheNourriture(p);
+                    return this.rechercheNourriture(p);
             }
 
-            foreach(ZoneAbstraite z in ZoneAbstraiteList)
+            foreach (ZoneAbstraite z in ZoneAbstraiteList)
             {
-                if ((fourmi.Position.X > 0 && fourmi.Position.Y > 0) && (z.X == fourmi.Position.X - 1 && z.Y == fourmi.Position.Y - 1)) // La fourmi se déplace en diagonale
-				{
-					return z;
-				}
-                else if ((fourmi.Position.X > 0 && fourmi.Position.Y == 0) && (z.X == fourmi.Position.X - 1 && z.Y == fourmi.Position.Y)) // La fourmi se déplace vers la droite
-				{
+                if ((fourmi.Position.X > this.Position.X && fourmi.Position.Y > this.Position.Y) && (z.X == fourmi.Position.X - 1 && z.Y == fourmi.Position.Y - 1)) // La fourmi se déplace en diagonale haute gauche
+                {
                     return z;
-				}
-                else if ((fourmi.Position.X == 0 && fourmi.Position.Y > 0) && (z.X == fourmi.Position.X && z.Y == fourmi.Position.Y - 1)) // La fourmi se déplace vers le haut
-				{
+                }
+                else if ((fourmi.Position.X > this.Position.X && fourmi.Position.Y == this.Position.Y) && (z.X == fourmi.Position.X - 1 && z.Y == fourmi.Position.Y)) // La fourmi se déplace vers la gauche
+                {
                     return z;
-				}
+                }
+                else if ((fourmi.Position.X == this.Position.X && fourmi.Position.Y > this.Position.Y) && (z.X == fourmi.Position.X && z.Y == fourmi.Position.Y - 1)) // La fourmi se déplace vers le haut
+                {
+                    return z;
+                }
             }
 
             return null;

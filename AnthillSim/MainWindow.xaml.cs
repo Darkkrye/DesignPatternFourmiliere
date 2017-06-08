@@ -53,6 +53,8 @@ namespace AnthillSim
                 Plateau.RowDefinitions.Add(new RowDefinition());
             }
 
+
+            dessineFourmiliere();
             dessineFourmi();
             dessineObjet();
         }
@@ -61,19 +63,21 @@ namespace AnthillSim
         {
             foreach (var item in App.Fourmiliere.ListFourmis)
             {
+                if (!(item.Position.X == App.Fourmiliere.Fourmiliere.Position.X && 
+                    item.Position.Y == App.Fourmiliere.Fourmiliere.Position.Y)){
+                    /*  Ellipse e = new Ellipse();
+                      e.Fill = new SolidColorBrush(Colors.AliceBlue);
+                      e.Margin = new Thickness(3);*/
+                    var e = new Image();
+                    if (item.GetFood())
+                        e.Source = new BitmapImage(new Uri("Ressources/antWithSalade.png", UriKind.Relative));
+                    else
+                        e.Source = new BitmapImage(new Uri("Ressources/ant.png", UriKind.Relative));
 
-                /*  Ellipse e = new Ellipse();
-                  e.Fill = new SolidColorBrush(Colors.AliceBlue);
-                  e.Margin = new Thickness(3);*/
-                var e = new Image();
-                if (item.GetFood())
-                    e.Source = new BitmapImage(new Uri("Ressources/antWithSalade.png", UriKind.Relative));
-                else
-                    e.Source = new BitmapImage(new Uri("Ressources/ant.png", UriKind.Relative));
-
-                Plateau.Children.Add(e);
-                Grid.SetColumn(e, item.Position.X);
-                Grid.SetRow(e, item.Position.Y);
+                    Plateau.Children.Add(e);
+                    Grid.SetColumn(e, item.Position.X);
+                    Grid.SetRow(e, item.Position.Y);
+                }
             }
         }
 
@@ -90,6 +94,15 @@ namespace AnthillSim
             }
         }
 
+        public void dessineFourmiliere()
+        {
+            var e = new Image();
+            e.Source = new BitmapImage(new Uri("Ressources/fourmiliere.png", UriKind.Relative));
+            Plateau.Children.Add(e);
+            Grid.SetColumn(e, App.Fourmiliere.Fourmiliere.Position.X);
+            Grid.SetRow(e, App.Fourmiliere.Fourmiliere.Position.Y);
+
+        }
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
@@ -100,13 +113,13 @@ namespace AnthillSim
         {
             App.Fourmiliere.DeleteFourmi();
         }
-/*
-        private void Apropos_Click(object sender, RoutedEventArgs e)
-        {
-            var ap = new Apropos();
-            ap.ShowDialog();
-            // App.Fourmiliere.DeleteFourmi();
-        }*/
+        /*
+                private void Apropos_Click(object sender, RoutedEventArgs e)
+                {
+                    var ap = new Apropos();
+                    ap.ShowDialog();
+                    // App.Fourmiliere.DeleteFourmi();
+                }*/
 
         private void TourSuivant_Click(object sender, RoutedEventArgs e)
         {
