@@ -31,9 +31,9 @@ namespace AnthillSim
         public FourmilierViewModel()
         {
             NomApplication = "Fourmiliere";
-            DimensionX = 15;
-            DimensionY = 15;
-            NbrObjet = 7;
+            DimensionX = 10;
+            DimensionY = 10;
+            NbrObjet = 5;
             NbrFourmi = 3;
             VitesseExecution = 500;
 

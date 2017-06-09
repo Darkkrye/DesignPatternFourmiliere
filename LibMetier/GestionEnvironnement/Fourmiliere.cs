@@ -251,7 +251,7 @@ namespace LibMetier
         {
             Fourmi fourmi = (Fourmi)p;
 
-            if (p.Position.X == 0 && p.Position.Y == 0) // La fourmi est à la maison
+            if (p.Position.X == this.Position.X && p.Position.Y == this.Position.Y) // La fourmi est à la maison
             {
                 if (fourmi.GetFood())
                 {
@@ -261,15 +261,7 @@ namespace LibMetier
                 }
 
                 if (ObjetAbstraitList.Count() == 0) // Il n'y a plus d'objets à chercher, la fourmi reste à la maison
-                {
-                    foreach (ZoneAbstraite z in ZoneAbstraiteList)
-                    {
-                        if (z.X == 0 && z.Y == 0)
-                        {
-                            return z;
-                        }
-                    }
-                }
+                    return this.Position;
                 else // Il reste des objets sur la carte, la fourmi repart
                     return this.rechercheNourriture(p);
             }
