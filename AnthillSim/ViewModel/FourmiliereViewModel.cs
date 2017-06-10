@@ -26,13 +26,14 @@ namespace AnthillSim
         public FabriqueAbstraite Fabrique { get; set; }
 
         private bool EnCours = false;
-        private bool continu = false;
+        private bool continu = true;
+        private int a = 1;
 
         public FourmilierViewModel()
         {
             NomApplication = "Fourmiliere";
-            DimensionX = 10;
-            DimensionY = 10;
+            DimensionX = 3;
+            DimensionY = 3;
             NbrObjet = 5;
             NbrFourmi = 3;
             VitesseExecution = 500;
@@ -70,7 +71,6 @@ namespace AnthillSim
                 for (int j = 0; j < DimensionY; j++)
                 {
                     terrainList.Add((BoutDeTerrain)Fabrique.CreerZone("Terrain n" + i + j, i, j));
-
                 }
             }
             // add the list of zone to an array of zone
@@ -167,7 +167,6 @@ namespace AnthillSim
                     {
 
                     }*/
-
                 }
             }
             // add the list of access to an array of access
@@ -182,9 +181,7 @@ namespace AnthillSim
             //Random position Fourmiliere
 
             Fourmiliere.Position = getZoneFromPosition(random.Next(0, DimensionX), random.Next(0, DimensionY));
-          //  Fourmiliere.Position.Y = random.Next(0, DimensionY);
-
-
+            //  Fourmiliere.Position.Y = random.Next(0, DimensionY);
         }
 
         public void CreationPersonnages()
@@ -193,10 +190,7 @@ namespace AnthillSim
             for (int i = 0; i < NbrFourmi; i++)
             {
                 AjouteFourmi(i);
-
             }
-
-
         }
 
         public void CreationObjets()
@@ -213,11 +207,19 @@ namespace AnthillSim
                 randomX = random.Next(0, DimensionX);
                 randomY = random.Next(0, DimensionY);
 
-                ObjetAbstrait obj = Fabrique.CreerObjet("Nourriture n" + i, TypeObjet.Nourriture, getZoneFromPosition(randomX, randomY));
+                ZoneAbstraite za = getZoneFromPosition(randomX, randomY);
+
+                while (za == Fourmiliere.Position)
+                {
+                    randomX = random.Next(0, DimensionX);
+                    randomY = random.Next(0, DimensionY);
+                    za = getZoneFromPosition(randomX, randomY);
+                }   
+
+                ObjetAbstrait obj = Fabrique.CreerObjet("Nourriture n" + i, TypeObjet.Nourriture, za);
 
                 ListObjet.Add(obj);
                 Fourmiliere.AjouteObjet(obj);
-
             }
 
         }
@@ -258,11 +260,18 @@ namespace AnthillSim
 
         public void TourSuivant()
         {
-            if (Fourmiliere.getStock().Count == NbrObjet &&
-                Fourmiliere.getObjets().Count == 0)
+            if (Fourmiliere.getStock().Count == (NbrObjet * a) && Fourmiliere.getObjets().Count == 0)
                 continu = false;
             else
                 Fourmiliere.Simuler();
+
+            if (!continu)
+            {
+                a++;
+                this.CreationObjets();
+                continu = true;
+            }
+
             Refresh();
 
             /*
@@ -274,19 +283,12 @@ namespace AnthillSim
 
         public void Stop()
         {
-            EnCours = false;
+            
         }
 
         public void Avance()
         {
-            EnCours = true;
-            while (EnCours)
-            {
-                TourSuivant();
-
-            }
-            Refresh();
-
+            TourSuivant();
         }
 
 

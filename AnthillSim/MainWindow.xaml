@@ -54,8 +54,8 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Button x:Name="TourSuivant" Content="Tour Suivant" Grid.Column="0" Margin="2"  />
-            <Button x:Name="Avance" Content="Avance"  Grid.Column="1"  Margin="2"  />
-            <Button x:Name="Stop" Content="Stop"  Grid.Column="2" Margin="2"  />
+            <Button x:Name="Avance" Content="Avance"  Grid.Column="1"  Margin="2" Click="Avance_Click" />
+            <Button x:Name="Stop" Content="Stop"  Grid.Column="2" Margin="2" Click="Stop_Click"  />
             <Slider Grid.Column="3" Minimum="100" Maximum="5000" Value="{Binding VitesseExecution}"
                     Margin="5"/>
 

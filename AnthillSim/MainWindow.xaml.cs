@@ -24,6 +24,8 @@ namespace AnthillSim
     /// </summary>
     public partial class MainWindow : Window
     {
+        Timer timer;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -131,13 +133,22 @@ namespace AnthillSim
 
         private void Avance_Click(object sender, RoutedEventArgs e)
         {
-            Thread t = new Thread(App.Fourmiliere.Avance);
-            t.Start();
+            /*Thread t = new Thread(App.Fourmiliere.Avance);
+            t.Start();*/
+            //App.Fourmiliere.Avance();
+
+            var startTimeSpan = TimeSpan.Zero;
+            var periodTimeSpan = TimeSpan.FromSeconds(2);
+
+            this.timer = new Timer((callback) =>
+            {
+                this.Dispatcher.Invoke(new Action(() => { App.Fourmiliere.TourSuivant(); }));
+            }, null, startTimeSpan, periodTimeSpan);
         }
 
         private void Stop_Click(object sender, RoutedEventArgs e)
         {
-            App.Fourmiliere.Stop();
+            this.timer.Change(Timeout.Infinite, Timeout.Infinite);
         }
 
 
