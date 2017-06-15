@@ -7,6 +7,9 @@ namespace LibAbstraite
 
 		public abstract string Nom { get; set; }
 
+		public virtual int Vie { get; set; }
+
+
 		public abstract ZoneAbstraite Position { get; set; }
 
 		protected ObjetAbstrait(String unNom, ZoneAbstraite Position)

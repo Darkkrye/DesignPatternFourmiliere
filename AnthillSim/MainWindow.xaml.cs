@@ -56,8 +56,8 @@ namespace AnthillSim
 
 
             dessineFourmiliere();
-            dessineFourmi();
             dessineObjet();
+            dessineFourmi();
         }
 
         public void dessineFourmi()
@@ -87,11 +87,22 @@ namespace AnthillSim
             foreach (var item in App.Fourmiliere.ListObjet)
             {
 
-                var e = new Image();
-                e.Source = new BitmapImage(new Uri("Ressources/salade.png", UriKind.Relative));
-                Plateau.Children.Add(e);
-                Grid.SetColumn(e, item.Position.X);
-                Grid.SetRow(e, item.Position.Y);
+                if (item.Type == LibAbstraite.TypeObjet.Nourriture)
+                {
+                    var e = new Image();
+                    e.Source = new BitmapImage(new Uri("Ressources/salade.png", UriKind.Relative));
+                    Plateau.Children.Add(e);
+                    Grid.SetColumn(e, item.Position.X);
+                    Grid.SetRow(e, item.Position.Y);
+                }else if( item.Type == TypeObjet.Pheromone)
+                {
+                    var e = new Image();
+                    e.Source = new BitmapImage(new Uri("Ressources/pheromone.png", UriKind.Relative));
+                    Plateau.Children.Add(e);
+                    Grid.SetColumn(e, item.Position.X);
+                    Grid.SetRow(e, item.Position.Y);
+                }
+               
             }
         }
 
