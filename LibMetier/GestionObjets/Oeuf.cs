@@ -6,8 +6,10 @@ namespace LibMetier
 	public class Oeuf : ObjetAbstrait
 	{
         public override TypeObjet Type { get; set; }
+        public override int Vie { get; set; }
 
-        public Oeuf(string unNom, ZoneAbstraite Position) : base(unNom, Position) {
+
+        public Oeuf(string unNom, int Vie, ZoneAbstraite Position) : base(unNom, Position) {
             Type = TypeObjet.Oeuf;
         }
 

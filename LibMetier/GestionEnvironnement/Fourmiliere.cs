@@ -154,8 +154,36 @@ namespace LibMetier
             return ZoneAbstraiteList;
         }
 
+
+        public void gerePheromoneVie()
+        {
+            List<ObjetAbstrait> toRemove = new List<ObjetAbstrait>();
+
+            foreach (ObjetAbstrait o in ObjetAbstraitList)
+            {
+                if (o.Type == TypeObjet.Pheromone)
+                {
+                    if (o.Vie > 0)
+                    {
+                        o.Vie -= 10;
+                    }
+                    else
+                    {
+                        toRemove.Add(o);
+                    }
+                }
+            }
+
+            foreach (ObjetAbstrait ro in toRemove)
+            {
+                this.ObjetAbstraitList.Remove(ro);
+            }
+        }
+
+
         public void AnalyseSituation()
         {
+            gerePheromoneVie();
             foreach (PersonnageAbstrait p in PersonnageAbstraitList)
             {
                 if (p.Type == TypePersonnage.ChercheuseDeNourriture)
@@ -167,6 +195,9 @@ namespace LibMetier
                         var zone = goHome(p);
                         if (zone != null)
                         {
+                            if (p.Position != this.Position && zone != this.Position)
+                                AjouteObjet(new Pheromone("test" + zone.X + zone.Y, zone));
+
                             DeplacerPersonnage(p, p.Position, zone);
                         }
                     }
@@ -200,12 +231,16 @@ namespace LibMetier
                     {
                         cpt++;
                         zone.Add(a.fin);
-                        if (a.fin == o.Position)
+                       if(o.Type == TypeObjet.Nourriture)
                         {
-                            fourmi.SetFood(true); // La fourmi récupère la nourriture
-                            fourmi.currentFood = o;
-                            ObjetAbstraitList.Remove(o); // Elle disparaît de la liste des nourriture.
-                            return a.fin;
+                            if (a.fin == o.Position)
+                            {
+                                fourmi.SetFood(true); // La fourmi récupère la nourriture
+                                fourmi.currentFood = o;
+                                ObjetAbstraitList.Remove(o); // Elle disparaît de la liste des nourriture.
+                                AjouteObjet(new Pheromone("test" + "test" + a.fin.X + a.fin.Y, a.fin));
+                                return a.fin;
+                            }
                         }
                     }
                 }
