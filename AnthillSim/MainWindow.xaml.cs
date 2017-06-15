@@ -16,6 +16,7 @@ using System.Collections.ObjectModel;
 using System.Threading;
 using Microsoft.Win32;
 using LibMetier;
+using LibAbstraite;
 
 namespace AnthillSim
 {

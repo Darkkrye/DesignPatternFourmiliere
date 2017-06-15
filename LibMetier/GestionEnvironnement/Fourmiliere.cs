@@ -157,21 +157,26 @@ namespace LibMetier
 
         public void gerePheromoneVie()
         {
+            List<ObjetAbstrait> toRemove = new List<ObjetAbstrait>();
+
             foreach (ObjetAbstrait o in ObjetAbstraitList)
             {
                 if (o.Type == TypeObjet.Pheromone)
                 {
                     if (o.Vie > 0)
                     {
-                        o.Vie--;
-
+                        o.Vie -= 10;
                     }
                     else
                     {
-                        ObjetAbstraitList.Remove(o);
-
+                        toRemove.Add(o);
                     }
                 }
+            }
+
+            foreach (ObjetAbstrait ro in toRemove)
+            {
+                this.ObjetAbstraitList.Remove(ro);
             }
         }
 
@@ -190,10 +195,10 @@ namespace LibMetier
                         var zone = goHome(p);
                         if (zone != null)
                         {
-                            DeplacerPersonnage(p, p.Position, zone);
-                            if (!((p.Position.X == this.Position.X && p.Position.Y == this.Position.Y)))
-                                AjouteObjet(new Pheromone("test" + zone.X + zone.Y, 10,zone));
+                            if (p.Position != this.Position && zone != this.Position)
+                                AjouteObjet(new Pheromone("test" + zone.X + zone.Y, zone));
 
+                            DeplacerPersonnage(p, p.Position, zone);
                         }
                     }
                     else  // sinon recherche nouritture
@@ -233,7 +238,7 @@ namespace LibMetier
                                 fourmi.SetFood(true); // La fourmi récupère la nourriture
                                 fourmi.currentFood = o;
                                 ObjetAbstraitList.Remove(o); // Elle disparaît de la liste des nourriture.
-                                AjouteObjet(new Pheromone("test" + "test" + a.fin.X + a.fin.Y,10, a.fin));
+                                AjouteObjet(new Pheromone("test" + "test" + a.fin.X + a.fin.Y, a.fin));
                                 return a.fin;
                             }
                         }

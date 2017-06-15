@@ -34,7 +34,7 @@ namespace AnthillSim
             DimensionX = 10;
             DimensionY = 10;
             NbrObjet = 5;
-            NbrFourmi = 3;
+            NbrFourmi = 1;
             VitesseExecution = 500;
 
             InitFourmiliere();

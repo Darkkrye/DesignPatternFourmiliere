@@ -28,7 +28,7 @@ namespace LibMetier
             }
             else if (type == TypeObjet.Oeuf)
             {
-                return new Oeuf(nom, position);
+                return new Oeuf(nom, 15, position);
             }
             else if (type == TypeObjet.Pheromone)
             {

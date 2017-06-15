@@ -6,7 +6,9 @@ namespace LibMetier
 	public class Pheromone : ObjetAbstrait
 	{
         public override TypeObjet Type { get; set; }
-        public Pheromone(string unNom,int Vie, ZoneAbstraite Position) : base(unNom, Position) {
+
+        public Pheromone(string unNom, ZoneAbstraite Position) : base(unNom, Position) {
+            this.Vie = 100;
             Type = TypeObjet.Pheromone;
         }
 
