@@ -28,6 +28,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="GestionEnvironnement\ObserverAbtrait.cs" />
     <Compile Include="GestionEtat\EtatFourmiAbstrait.cs" />
     <Compile Include="GestionObjets\TypeObjet.cs" />
     <Compile Include="GestionPersonnages\TypePersonnage.cs" />

@@ -3,38 +3,47 @@ using System.Collections.Generic;
 
 namespace LibAbstraite
 {
-	public abstract class PersonnageAbstrait
-	{
-		protected Random Hasard;
+    public abstract class PersonnageAbstrait
+    {
+        private bool food;
+        protected Random Hasard;
 
-		public abstract TypePersonnage Type { get; set; }
+        public abstract string Nom { get; set; }
+        public abstract TypePersonnage Type { get; set; }
+        public abstract ZoneAbstraite Position { get; set; }
+        public abstract List<ObserverAbstrait> observers { get; set; }
+        
+        public abstract ZoneAbstraite ChoixZoneSuivante(List<AccesAbstrait> accesList);
 
-		public abstract string Nom { get; set; }
+        public abstract void ChangementEtat(EtatFourmiAbstrait etatCourant);
 
-		public abstract ZoneAbstraite Position { get; set; }
+        public bool GetFood(){return food;}
 
+        public void SetFood(bool value){food = value;}
 
-
-          private bool food;
-
-        public bool GetFood()
+        public PersonnageAbstrait(string nom, ZoneAbstraite position)
         {
-            return food;
-        }
-
-        public void SetFood(bool value)
-        {
-            food = value;
-        }
-
-		public abstract ZoneAbstraite ChoixZoneSuivante(List<AccesAbstrait> accesList);
-
-        	public abstract void ChangementEtat(EtatFourmiAbstrait etatCourant);
-
-		public PersonnageAbstrait(string nom, ZoneAbstraite position)
-        {
-			Nom = nom;
+            Nom = nom;
             Position = position;
-		}
-	}
+        }
+
+        public void Subscribe(ObserverAbstrait observer)
+        {
+            observers.Add(observer);
+        }
+
+        public void Unsubscribe(ObserverAbstrait observer)
+        {
+            observers.Remove(observer);
+        }
+
+        public void Notify()
+        {
+            foreach(var obs in observers)
+            {
+                obs.Update();
+            }
+        }
+
+    }
 }

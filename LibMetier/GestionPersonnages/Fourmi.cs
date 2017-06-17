@@ -12,10 +12,11 @@ namespace LibMetier
         public override ZoneAbstraite Position { get; set; }
         public override string Nom { get; set; }
         public EtatFourmiAbstrait EtatCourant { get; set; }
-        // ? Très chiant à parser ...
+        
         public List<AccesAbstrait> pathToFood { get; set; }
         public ObjetAbstrait currentFood { get; set; }
 
+        public override List<ObserverAbstrait> observers { get; set; }
 
 
 
@@ -28,37 +29,29 @@ namespace LibMetier
 
         public string Affichage { get; set; }
 
+
         //vie ; 
 
-        
+
 
         public Fourmi(string nom, ZoneAbstraite position) : base(nom, position)
         {
             Type = TypePersonnage.ChercheuseDeNourriture;
-            //random non fnctionnel ...
             rand = new Random();
-            //ajout depuis WPF
             EtapesList = new ObservableCollection<Etape>();
-            //X = rand.Next(0,20);
-            //Y = rand.Next(0,20);
             EtapesList.Add(new Etape() { NumeroTour = 1, X = X, Y = Y });
-            //Nom = nom;
-            //Affichage = Nom + X + Y;
+            Nom = nom;
         }
 
-        public Fourmi(string nom, ZoneAbstraite position, TypePersonnage typeP) : base(nom, position)
-		{
-			Type = typeP;
-			//random non fnctionnel ...
-			rand = new Random();
-			//ajout depuis WPF
-			EtapesList = new ObservableCollection<Etape>();
-			//X = rand.Next(0,20);
-			//Y = rand.Next(0,20);
-			EtapesList.Add(new Etape() { NumeroTour = 1, X = X, Y = Y });
-			//Nom = nom;
-			//Affichage = Nom + X + Y;
-		}
+    //    public Fourmi(string nom, ZoneAbstraite position, TypePersonnage typeP) : base(nom, position)
+	//	{
+	//		Type = typeP;
+	//		rand = new Random();
+	//		EtapesList = new ObservableCollection<Etape>();
+	//		EtapesList.Add(new Etape() { NumeroTour = 1, X = X, Y = Y });
+	//		//Nom = nom;
+	//		//Affichage = Nom + X + Y;
+	//	}
 
         public Fourmi() : base("", null)
         {
