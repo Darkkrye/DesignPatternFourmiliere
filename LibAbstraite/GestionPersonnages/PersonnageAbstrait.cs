@@ -11,6 +11,7 @@ namespace LibAbstraite
         public abstract string Nom { get; set; }
         public abstract TypePersonnage Type { get; set; }
         public abstract ZoneAbstraite Position { get; set; }
+        public abstract ZoneAbstraite PreviousPosition { get; set; }
         public abstract List<ObserverAbstrait> observers { get; set; }
         
         public abstract ZoneAbstraite ChoixZoneSuivante(List<AccesAbstrait> accesList);

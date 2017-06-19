@@ -74,6 +74,7 @@ namespace LibMetier
 
         public override void DeplacerPersonnage(PersonnageAbstrait unPersonnage, ZoneAbstraite zoneSource, ZoneAbstraite zoneFin)
         {
+            unPersonnage.PreviousPosition = unPersonnage.Position;
             unPersonnage.Position = zoneFin;
         }
 
@@ -188,6 +189,10 @@ namespace LibMetier
             {
                 if (p.Type == TypePersonnage.ChercheuseDeNourriture)
                 {
+                    if(p.Position == this.Position)
+                    {
+                        p.PreviousPosition = this.Position;
+                    }
                     // if fourmi a de la nourriture 
                     if (p.GetFood())
                     {
@@ -218,31 +223,95 @@ namespace LibMetier
             Fourmi fourmi = (Fourmi)p;
             Random random = new Random();
             int resultat;
+            Boolean foodAroundMe = false;
             // liste de chemin disponible
             List<ZoneAbstraite> zone = new List<ZoneAbstraite>();
+            // liste des objets autour de soi disponible
+            List<ObjetAbstrait> objetsDispo = new List<ObjetAbstrait>();
+
             // compteur de chemin disponible
             int cpt = 0;
             foreach (AccesAbstrait a in AccesAbstraitsList)
             {
                 if (fourmi.Position == a.debut)
                 {
-                    // recherche d'un objet dans les zones autour de la fourmi
+                   
+                    // recherche si nourriture autour de soi et je regarde si il y a de la nourriture
                     foreach (ObjetAbstrait o in ObjetAbstraitList)
                     {
-                        cpt++;
-                        zone.Add(a.fin);
-                       if(o.Type == TypeObjet.Nourriture)
+                        // j'ajoute un acces a la liste des chemins disponible l'acces ne correspondant pas a celui de la fourmiliere 
+                        // ou si il ne correspond pas a lancienne position de la fourmi
+                        if (a.fin != fourmi.PreviousPosition && a.fin != this.Position)
                         {
-                            if (a.fin == o.Position)
+                            cpt++;
+                            zone.Add(a.fin);
+                        }
+                        
+                        if (o.Type == TypeObjet.Nourriture)
+                        {
+                            
+                            if (a.fin == o.Position && fourmi.PreviousPosition != o.Position)
                             {
+                                foodAroundMe = true;
                                 fourmi.SetFood(true); // La fourmi récupère la nourriture
                                 fourmi.currentFood = o;
-                                ObjetAbstraitList.Remove(o); // Elle disparaît de la liste des nourriture.
+                                if (o.Vie > 2) // ici je check le nombre de portion restante a la nourriture
+                                {
+                                    o.Vie -= 2; // avec 2, il faut 5 tour a la fourmi pour recuperer tout l'objet nourriture
+                                }
+                                else
+                                {
+                                    ObjetAbstraitList.Remove(o); // Elle disparaît de la liste des nourriture.
+                                }
                                 AjouteObjet(new Pheromone("test" + "test" + a.fin.X + a.fin.Y, a.fin));
                                 return a.fin;
                             }
                         }
                     }
+                    // si pas de nourriture autour de moi, je suis les pheromones
+                    if(foodAroundMe == false)
+                    {
+                        foreach (ObjetAbstrait o in ObjetAbstraitList)
+                        {
+                            if (o.Type == TypeObjet.Pheromone)
+                            {
+                                if (a.fin == o.Position && fourmi.PreviousPosition != o.Position)
+                                {
+                                    return a.fin;
+                                }
+                            }
+                        }
+                    }
+                    
+                    /*foreach (ObjetAbstrait o in ObjetAbstraitList)
+                    {
+                        cpt++;
+                        zone.Add(a.fin);
+                        if(o.Type == TypeObjet.Nourriture)
+                        {
+                            if (a.fin == o.Position)
+                            {
+                                fourmi.SetFood(true); // La fourmi récupère la nourriture
+                                fourmi.currentFood = o;
+                                if(o.Vie > 0) // ici je check le nombre de portion restante a la nourriture
+                                {
+                                    o.Vie -= 2; // avec 2, il faut 5 tour a la fourmi pour recuperer tout l'objet nourriture
+                                }
+                                else
+                                {
+                                    ObjetAbstraitList.Remove(o); // Elle disparaît de la liste des nourriture.
+                                }
+                                AjouteObjet(new Pheromone("test" + "test" + a.fin.X + a.fin.Y, a.fin));
+                                return a.fin;
+                            }
+                        }else if(o.Type == TypeObjet.Pheromone)
+                        {
+                            if (a.fin == o.Position)
+                            {
+                                return a.fin;
+                            }
+                        }
+                    }*/
                 }
             }
 
@@ -285,7 +354,7 @@ namespace LibMetier
         public ZoneAbstraite goHome(PersonnageAbstrait p)
         {
             Fourmi fourmi = (Fourmi)p;
-
+            
             if (p.Position.X == this.Position.X && p.Position.Y == this.Position.Y) // La fourmi est à la maison
             {
                 if (fourmi.GetFood())

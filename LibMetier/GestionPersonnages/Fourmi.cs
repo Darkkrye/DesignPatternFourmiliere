@@ -10,6 +10,7 @@ namespace LibMetier
         private Random rand;
         public override TypePersonnage Type { get; set; }
         public override ZoneAbstraite Position { get; set; }
+        public override ZoneAbstraite PreviousPosition { get; set; }// utilise pour ne pas retourner sur sa derniere position
         public override string Nom { get; set; }
         public EtatFourmiAbstrait EtatCourant { get; set; }
         

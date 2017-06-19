@@ -92,6 +92,7 @@ namespace AnthillSim
                 {
                     var e = new Image();
                     e.Source = new BitmapImage(new Uri("Ressources/salade.png", UriKind.Relative));
+                    e.Opacity = Convert.ToSingle(item.Vie) / 10;
                     Plateau.Children.Add(e);
                     Grid.SetColumn(e, item.Position.X);
                     Grid.SetRow(e, item.Position.Y);
@@ -99,7 +100,7 @@ namespace AnthillSim
                 {
                     var e = new Image();
                     e.Source = new BitmapImage(new Uri("Ressources/pheromone.png", UriKind.Relative));
-                    e.Opacity = Convert.ToSingle(item.Vie) / 100; ;
+                    e.Opacity = Convert.ToSingle(item.Vie) / 100;
                     Plateau.Children.Add(e);
                     Grid.SetColumn(e, item.Position.X);
                     Grid.SetRow(e, item.Position.Y);
