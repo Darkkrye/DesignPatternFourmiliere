@@ -17,6 +17,8 @@ namespace LibMetier
 
         public override string Nom { get; set; }
 
+        public override int Vie { get; set; }
+
         public override ZoneAbstraite Position { get; set; }
 
         public override TypePersonnage Type { get; set; }
@@ -26,6 +28,7 @@ namespace LibMetier
 
             EtapesList = new ObservableCollection<Etape>();
             EtapesList.Add(new Etape() { NumeroTour = 1, X = X, Y = Y });
+            this.Vie = 100;
         }
 
         public override void ChangementEtat(EtatFourmiAbstrait etatCourant)
