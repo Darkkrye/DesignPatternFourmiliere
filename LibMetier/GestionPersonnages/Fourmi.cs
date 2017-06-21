@@ -16,6 +16,7 @@ namespace LibMetier
         
         public List<AccesAbstrait> pathToFood { get; set; }
         public ObjetAbstrait currentFood { get; set; }
+        public override int Vie { get; set; }
 
         public override List<ObserverAbstrait> observers { get; set; }
 
@@ -42,6 +43,7 @@ namespace LibMetier
             EtapesList = new ObservableCollection<Etape>();
             EtapesList.Add(new Etape() { NumeroTour = 1, X = X, Y = Y });
             Nom = nom;
+            this.Vie = 100;
         }
 
     //    public Fourmi(string nom, ZoneAbstraite position, TypePersonnage typeP) : base(nom, position)

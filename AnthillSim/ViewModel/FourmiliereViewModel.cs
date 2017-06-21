@@ -33,8 +33,8 @@ namespace AnthillSim
             NomApplication = "Fourmiliere";
             DimensionX = 10;
             DimensionY = 10;
-            NbrObjet = 5;
-            NbrFourmi = 1;
+            NbrObjet = 6;
+            NbrFourmi = 2;
             VitesseExecution = 500;
 
             InitFourmiliere();
@@ -235,26 +235,20 @@ namespace AnthillSim
             return null;
         }
 
-
-
         public void AjouteFourmi(int i = -1)
         {
             i = (i != -1) ? i : ListFourmis.Count + 1;
             PersonnageAbstrait f = Fabrique.CreerPersonnage("Fourmi n" + i, TypePersonnage.ChercheuseDeNourriture,
                                          Fourmiliere.Position
-
                                          );
 
             Fourmiliere.AjoutePersonnage(f);
-
         }
 
         public void DeleteFourmi()
         {
             ListFourmis.Remove(FourmisSelect);
         }
-
-
 
         public void TourSuivant()
         {
