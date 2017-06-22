@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 
+
 namespace LibMetier
 {
     public class Fourmiliere : EnvironnementAbstrait
@@ -34,7 +35,6 @@ namespace LibMetier
         {
             foreach (AccesAbstrait acces in accesArray)
             {
-
                 AccesAbstraitsList.Add(acces);
             }
         }
@@ -154,6 +154,44 @@ namespace LibMetier
             return ZoneAbstraiteList;
         }
 
+        public void gereVieFourmi()
+        {
+            List<PersonnageAbstrait> toRemove = new List<PersonnageAbstrait>();
+
+            foreach (PersonnageAbstrait o in PersonnageAbstraitList)
+            {
+                // todo check si nourriture en stock dans la fourmiliere + suppresion nourriture
+                if (stock.Count > 0)
+                {
+                    if(o.Position == this.Position)
+                    {
+                        // on supprime une nourriture du stock + ajoute 7 de vie a la fourmi
+                        stock.RemoveAt(0);
+                        o.Vie += 10;
+                        if(o.Vie > 100)
+                        {
+                            o.Vie = 100;
+                        }
+                    }
+                    
+                }
+                else
+                {
+                    // -5 de vie par fourmi par tour si pas de nourriture
+                    o.Vie -= 2;
+                }
+                // si une fourmi a plus de vie, on la rajoute ds une nouvelle liste des fourmi a supprimer
+                if (o.Vie < 0)
+                {
+                    toRemove.Add(o);
+                }
+            }
+            // on supprime de la liste la fourmi morte
+            foreach (PersonnageAbstrait ro in toRemove)
+            {
+                this.PersonnageAbstraitList.Remove(ro);
+            }
+        }
 
         public void gerePheromoneVie()
         {
@@ -172,6 +210,7 @@ namespace LibMetier
                         toRemove.Add(o);
                     }
                 }
+                
             }
 
             foreach (ObjetAbstrait ro in toRemove)
@@ -183,6 +222,7 @@ namespace LibMetier
 
         public void AnalyseSituation()
         {
+            gereVieFourmi();
             gerePheromoneVie();
             foreach (PersonnageAbstrait p in PersonnageAbstraitList)
             {

@@ -38,8 +38,8 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Button x:Name="Remove" Grid.Row="3" Margin="10" />
-        <Button x:Name="Add"  Grid.Column="0" Grid.Row="2" Margin="10"/>
+        <Button x:Name="Remove" Grid.Row="3" Margin="2"  Content="Supprimer fourmi" />
+        <Button x:Name="Add"  Grid.Column="0" Grid.Row="2" Margin="2" Content="Ajouter fourmi"/>
         <!-- Grid.ColumnSpan="3"-->
         <TextBlock Text="{Binding FourmisSelect.Nom}" Grid.Column="2" Grid.Row="1" />
 

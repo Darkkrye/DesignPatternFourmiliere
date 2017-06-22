@@ -7,6 +7,7 @@ namespace LibAbstraite
     {
         private bool food;
         protected Random Hasard;
+        public virtual int Vie { get; set; }
 
         public abstract string Nom { get; set; }
         public abstract TypePersonnage Type { get; set; }
