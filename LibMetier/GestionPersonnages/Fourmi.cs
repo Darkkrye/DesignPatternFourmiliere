@@ -17,8 +17,6 @@ namespace LibMetier
         public List<AccesAbstrait> pathToFood { get; set; }
         public ObjetAbstrait currentFood { get; set; }
 
-        public override List<ObserverAbstrait> observers { get; set; }
-
 
 
         /// <summary>

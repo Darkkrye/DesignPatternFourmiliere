@@ -9,7 +9,6 @@ namespace LibAbstraite
 
 		public virtual int Vie { get; set; }
 
-
 		public abstract ZoneAbstraite Position { get; set; }
 
 		protected ObjetAbstrait(String unNom, ZoneAbstraite Position)

@@ -9,8 +9,26 @@ namespace LibAbstraite
     public abstract class ObserverAbstrait
     {
         public abstract string Etat { get; set; }
+        public abstract List<PersonnageAbstrait> observers { get; set; }
 
-        public abstract void Update();
+        public void Subscribe(PersonnageAbstrait personnage)
+        {
+            observers.Add(personnage);
+        }
+
+        public void Unsubscribe(PersonnageAbstrait personnage)
+        {
+            observers.Remove(personnage);
+        }
+
+        public void Notify()
+        {
+            foreach (var personnage in observers)
+            {
+                personnage.Update();
+            }
+        }
+        
 
     }
 }

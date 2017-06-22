@@ -28,23 +28,7 @@ namespace LibAbstraite
             Position = position;
         }
 
-        public void Subscribe(ObserverAbstrait observer)
-        {
-            observers.Add(observer);
-        }
-
-        public void Unsubscribe(ObserverAbstrait observer)
-        {
-            observers.Remove(observer);
-        }
-
-        public void Notify()
-        {
-            foreach(var obs in observers)
-            {
-                obs.Update();
-            }
-        }
+        public abstract void Update();
 
     }
 }

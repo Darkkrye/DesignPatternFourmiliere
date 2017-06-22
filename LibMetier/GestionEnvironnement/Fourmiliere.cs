@@ -96,7 +96,6 @@ namespace LibMetier
         public List<PersonnageAbstrait> getPersonnages()
         {
             return PersonnageAbstraitList;
-
         }
 
 
@@ -189,7 +188,7 @@ namespace LibMetier
             {
                 if (p.Type == TypePersonnage.ChercheuseDeNourriture)
                 {
-                    if(p.Position == this.Position)
+                    if (p.Position == this.Position)
                     {
                         p.PreviousPosition = this.Position;
                     }
@@ -235,21 +234,21 @@ namespace LibMetier
             {
                 if (fourmi.Position == a.debut)
                 {
-                   
+
                     // recherche si nourriture autour de soi et je regarde si il y a de la nourriture
                     foreach (ObjetAbstrait o in ObjetAbstraitList)
                     {
-                        // j'ajoute un acces a la liste des chemins disponible l'acces ne correspondant pas a celui de la fourmiliere 
+                        // j'ajoute un acces à la liste des chemins disponible l'acces ne correspondant pas à celui de la fourmiliere 
                         // ou si il ne correspond pas a lancienne position de la fourmi
                         if (a.fin != fourmi.PreviousPosition && a.fin != this.Position)
                         {
                             cpt++;
                             zone.Add(a.fin);
                         }
-                        
+
                         if (o.Type == TypeObjet.Nourriture)
                         {
-                            
+
                             if (a.fin == o.Position && fourmi.PreviousPosition != o.Position)
                             {
                                 foodAroundMe = true;
@@ -269,7 +268,7 @@ namespace LibMetier
                         }
                     }
                     // si pas de nourriture autour de moi, je suis les pheromones
-                    if(foodAroundMe == false)
+                    if (foodAroundMe == false)
                     {
                         foreach (ObjetAbstrait o in ObjetAbstraitList)
                         {
@@ -282,7 +281,7 @@ namespace LibMetier
                             }
                         }
                     }
-                    
+
                     /*foreach (ObjetAbstrait o in ObjetAbstraitList)
                     {
                         cpt++;
@@ -324,9 +323,10 @@ namespace LibMetier
                 ZoneAbstraite za = zone.ElementAt(resultat);
                 if (!za.isOccuped)
                 {
-                    foreach(ZoneAbstraite zz in ZoneAbstraiteList)
+                    foreach (ZoneAbstraite zz in ZoneAbstraiteList)
                     {
-                        if (zz.X == p.Position.X && zz.Y == p.Position.Y) {
+                        if (zz.X == p.Position.X && zz.Y == p.Position.Y)
+                        {
                             zz.isOccuped = false;
                         }
                     }
@@ -354,7 +354,7 @@ namespace LibMetier
         public ZoneAbstraite goHome(PersonnageAbstrait p)
         {
             Fourmi fourmi = (Fourmi)p;
-            
+
             if (p.Position.X == this.Position.X && p.Position.Y == this.Position.Y) // La fourmi est à la maison
             {
                 if (fourmi.GetFood())
@@ -394,7 +394,7 @@ namespace LibMetier
                 else if ((fourmi.Position.X == this.Position.X && fourmi.Position.Y > this.Position.Y) && (z.X == fourmi.Position.X && z.Y == fourmi.Position.Y - 1))
                     return z;
                 // La fourmi se déplace vers le bas
-                else if ((fourmi.Position.X == this.Position.X && fourmi.Position.Y < this.Position.Y) && (z.X == fourmi.Position.X && z.Y == fourmi.Position.Y +1))
+                else if ((fourmi.Position.X == this.Position.X && fourmi.Position.Y < this.Position.Y) && (z.X == fourmi.Position.X && z.Y == fourmi.Position.Y + 1))
                     return z;
             }
 

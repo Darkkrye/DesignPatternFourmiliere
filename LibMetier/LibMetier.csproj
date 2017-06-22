@@ -33,7 +33,6 @@
     <Compile Include="GestionMeteo\OberverMeteo.cs" />
     <Compile Include="GestionPersonnages\Reine.cs" />
     <Compile Include="GestionSauvegarde\ParserXML.cs" />
-    <Compile Include="MyClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Fabriques\FabriqueFourmilliere.cs" />
     <Compile Include="GestionEnvironnement\Fourmiliere.cs" />
