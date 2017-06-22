@@ -16,6 +16,8 @@ namespace LibMetier
         internal List<ObjetAbstrait> ObjetAbstraitList;
         internal List<PersonnageAbstrait> PersonnageAbstraitList;
         internal List<ObjetAbstrait> stock;
+        internal Meteo Meteo { get; set; }
+
         public ZoneAbstraite Position { get; set; }
 
 
@@ -27,7 +29,7 @@ namespace LibMetier
             ObjetAbstraitList = new List<ObjetAbstrait>();
             PersonnageAbstraitList = new List<PersonnageAbstrait>();
             stock = new List<ObjetAbstrait>();
-
+            Meteo = new Meteo();
 
 
         }
@@ -46,6 +48,7 @@ namespace LibMetier
 
         public override void AjoutePersonnage(PersonnageAbstrait unPersonnage)
         {
+            Meteo.Subscribe(unPersonnage);
             PersonnageAbstraitList.Add(unPersonnage);
         }
 

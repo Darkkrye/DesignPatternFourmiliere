@@ -18,6 +18,8 @@ namespace LibAbstraite
         public abstract ZoneAbstraite ChoixZoneSuivante(List<AccesAbstrait> accesList);
 
         public abstract void ChangementEtat(EtatFourmiAbstrait etatCourant);
+        
+        public abstract void Update(EtatMeteo Etat);
 
         public bool GetFood(){return food;}
 
@@ -29,7 +31,7 @@ namespace LibAbstraite
             Position = position;
         }
 
-        public abstract void Update();
+        
 
     }
 }

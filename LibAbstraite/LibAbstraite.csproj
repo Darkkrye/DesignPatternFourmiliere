@@ -28,6 +28,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="GestionEnvironnement\EtatMeteo.cs" />
     <Compile Include="GestionEnvironnement\ObserverAbtrait.cs" />
     <Compile Include="GestionEtat\EtatFourmiAbstrait.cs" />
     <Compile Include="GestionObjets\TypeObjet.cs" />

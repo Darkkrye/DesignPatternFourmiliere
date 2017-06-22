@@ -30,7 +30,7 @@
   <ItemGroup>
     <Compile Include="Etape.cs" />
     <Compile Include="GestionEtat\EtatFourmiRepos.cs" />
-    <Compile Include="GestionMeteo\OberverMeteo.cs" />
+    <Compile Include="GestionMeteo\Meteo.cs" />
     <Compile Include="GestionPersonnages\Reine.cs" />
     <Compile Include="GestionSauvegarde\ParserXML.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -43,7 +43,6 @@
     <Compile Include="GestionObjets\Pheromone.cs" />
     <Compile Include="GestionPersonnages\Fourmi.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\LibAbstraite\LibAbstraite.csproj">
       <Project>{3C66F374-CA21-4563-8A7E-1960C66E68C0}</Project>

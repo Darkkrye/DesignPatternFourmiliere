@@ -74,6 +74,24 @@ namespace LibMetier
         public void Avance()
         { }
 
+        public override void Update(EtatMeteo Etat){
+            switch (Etat) { 
+                case EtatMeteo.Soleil:
+                    //continue ta vie
+                    break;
+                case EtatMeteo.Orage:
+                    // meurt ?
+                    break;
+                case EtatMeteo.Pluie:
+                    //goHome
+                    break;
+                default:
+                    break;
+            }
+
+
+        }
+
 
 
     }
