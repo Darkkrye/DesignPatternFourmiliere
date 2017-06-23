@@ -9,8 +9,10 @@ namespace LibAbstraite
     public abstract class ObserverAbstrait
     {
         public abstract string Etat { get; set; }
+        public abstract List<PersonnageAbstrait> observers { get; set; }
 
-        public abstract void Update();
+       
+        
 
     }
 }

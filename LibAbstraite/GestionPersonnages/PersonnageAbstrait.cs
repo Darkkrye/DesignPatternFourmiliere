@@ -18,6 +18,8 @@ namespace LibAbstraite
         public abstract ZoneAbstraite ChoixZoneSuivante(List<AccesAbstrait> accesList);
 
         public abstract void ChangementEtat(EtatFourmiAbstrait etatCourant);
+        
+        public abstract void Update(EtatMeteo Etat);
 
         public bool GetFood(){return food;}
 
@@ -29,22 +31,13 @@ namespace LibAbstraite
             Position = position;
         }
 
-        public void Subscribe(ObserverAbstrait observer)
+        public PersonnageAbstrait(PersonnageAbstrait personnage)
         {
-            observers.Add(observer);
-        }
 
-        public void Unsubscribe(ObserverAbstrait observer)
-        {
-            observers.Remove(observer);
         }
-
-        public void Notify()
+        public PersonnageAbstrait()
         {
-            foreach(var obs in observers)
-            {
-                obs.Update();
-            }
+
         }
 
     }

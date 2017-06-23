@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using LibMetier;
 using LibAbstraite;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
+using LibMetier.GestionTemps;
 
 namespace AnthillSim
 {
@@ -56,9 +58,11 @@ namespace AnthillSim
             CreationZonesAcces();
             CreationPersonnages();
             CreationObjets();
+            
             Refresh();
-
         }
+
+        
 
         public void CreationZonesAcces()
         {
@@ -190,10 +194,18 @@ namespace AnthillSim
         public void CreationPersonnages()
         {
             ListFourmis = new List<PersonnageAbstrait>();
+
+            // la premiere fourmi cree est une reine, les autres sont des chercheuses de nourriture
             for (int i = 0; i < NbrFourmi; i++)
             {
-                AjouteFourmi(i);
-
+                if (i == 0)
+                {
+                    AjouteFourmi(i, true);
+                }
+                else
+                {
+                    AjouteFourmi(i, false);
+                }
             }
 
 
@@ -235,13 +247,22 @@ namespace AnthillSim
             return null;
         }
 
-        public void AjouteFourmi(int i = -1)
+        public void AjouteFourmi(int i = -1, bool isReine = false)
         {
             i = (i != -1) ? i : ListFourmis.Count + 1;
-            PersonnageAbstrait f = Fabrique.CreerPersonnage("Fourmi n" + i, TypePersonnage.ChercheuseDeNourriture,
+            PersonnageAbstrait f;
+            if (isReine)
+            {
+                f = Fabrique.CreerPersonnage("Fourmi n" + i, TypePersonnage.Reine,
+                                        Fourmiliere.Position
+                                        );
+            }
+            else
+            {
+                f = Fabrique.CreerPersonnage("Fourmi n" + i, TypePersonnage.ChercheuseDeNourriture,
                                          Fourmiliere.Position
                                          );
-
+            }
             Fourmiliere.AjoutePersonnage(f);
         }
 

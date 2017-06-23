@@ -28,11 +28,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="GestionEnvironnement\EtatMeteo.cs" />
     <Compile Include="GestionEnvironnement\ObserverAbtrait.cs" />
     <Compile Include="GestionEtat\EtatFourmiAbstrait.cs" />
     <Compile Include="GestionObjets\TypeObjet.cs" />
     <Compile Include="GestionPersonnages\TypePersonnage.cs" />
-    <Compile Include="MyClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Fabriques\FabriqueAbstraite.cs" />
     <Compile Include="GestionEnvironnement\AccesAbstrait.cs" />

@@ -18,8 +18,6 @@ namespace LibMetier
         public ObjetAbstrait currentFood { get; set; }
         public override int Vie { get; set; }
 
-        public override List<ObserverAbstrait> observers { get; set; }
-
 
 
         /// <summary>
@@ -30,6 +28,19 @@ namespace LibMetier
         public int Y { get; set; }
 
         public string Affichage { get; set; }
+
+        public override List<ObserverAbstrait> observers
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
 
 
         //vie ; 
@@ -56,9 +67,7 @@ namespace LibMetier
 	//		//Affichage = Nom + X + Y;
 	//	}
 
-        public Fourmi() : base("", null)
-        {
-        }
+        
 
         public override ZoneAbstraite ChoixZoneSuivante(List<AccesAbstrait> accesList)
         {
@@ -75,6 +84,24 @@ namespace LibMetier
         /// </summary>
         public void Avance()
         { }
+
+        public override void Update(EtatMeteo Etat){
+            switch (Etat) { 
+                case EtatMeteo.Soleil:
+                    //continue ta vie
+                    break;
+                case EtatMeteo.Orage:
+                    // meurt ?
+                    break;
+                case EtatMeteo.Pluie:
+                    //goHome
+                    break;
+                default:
+                    break;
+            }
+
+
+        }
 
 
 
