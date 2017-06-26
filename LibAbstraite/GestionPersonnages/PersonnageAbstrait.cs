@@ -8,6 +8,7 @@ namespace LibAbstraite
         private bool food;
         protected Random Hasard;
         public virtual int Vie { get; set; }
+        public virtual string urlImage { get; set; }
 
         public abstract string Nom { get; set; }
         public abstract TypePersonnage Type { get; set; }
@@ -31,7 +32,14 @@ namespace LibAbstraite
             Position = position;
         }
 
-        
+        public PersonnageAbstrait(PersonnageAbstrait personnage)
+        {
+
+        }
+        public PersonnageAbstrait()
+        {
+
+        }
 
     }
 }

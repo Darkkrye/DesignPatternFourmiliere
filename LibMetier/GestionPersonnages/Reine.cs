@@ -18,6 +18,8 @@ namespace LibMetier
 
         public override string Nom { get; set; }
 
+        public override string urlImage { get; set; }
+
         public override int Vie { get; set; }
 
         public override ZoneAbstraite Position { get; set; }
@@ -26,10 +28,11 @@ namespace LibMetier
 
         public Reine(string nom, ZoneAbstraite position) : base(nom, position)
         {
-
+            Type = TypePersonnage.Reine;
             EtapesList = new ObservableCollection<Etape>();
             EtapesList.Add(new Etape() { NumeroTour = 1, X = X, Y = Y });
             this.Vie = 100;
+            urlImage = "Ressources/reine.png";
         }
 
         public override void ChangementEtat(EtatFourmiAbstrait etatCourant)

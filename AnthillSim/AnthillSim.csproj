@@ -55,8 +55,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Apropos.xaml.cs">
+      <DependentUpon>Apropos.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\AproposViewModel.cs" />
     <Compile Include="ViewModel\FourmiliereViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
+    <Page Include="Apropos.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -121,6 +129,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Ressources\fourmiliere.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Ressources\reine.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

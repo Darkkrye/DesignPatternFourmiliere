@@ -18,9 +18,9 @@ namespace LibMetier
         public ObjetAbstrait currentFood { get; set; }
         public override int Vie { get; set; }
 
-   //     public Fourmiliere fourmiliere
+        //     public Fourmiliere fourmiliere
 
-
+        public override string urlImage { get; set; }
 
         /// <summary>
         /// ajout depuis le cours WPF revérifier plus tard
@@ -38,6 +38,7 @@ namespace LibMetier
 
         public Fourmi(string nom, ZoneAbstraite position) : base(nom, position)
         {
+            urlImage = "Ressources/ant.png";
             Type = TypePersonnage.ChercheuseDeNourriture;
             rand = new Random();
             EtapesList = new ObservableCollection<Etape>();

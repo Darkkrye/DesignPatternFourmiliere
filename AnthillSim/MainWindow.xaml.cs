@@ -32,10 +32,10 @@ namespace AnthillSim
             DataContext = App.Fourmiliere;
             Add.Click += Add_Click;
             Remove.Click += Remove_Click;
-            //AproposBtn.Click += Apropos_Click;
+            Apropos.Click += Apropos_Click;
             TourSuivant.Click += TourSuivant_Click;
             dessine();
-            Plateau.Background = new SolidColorBrush(Colors.SaddleBrown);
+            
         }
 
         private void dessine()
@@ -111,6 +111,9 @@ namespace AnthillSim
 
         public void dessineFourmiliere()
         {
+            Plateau.Background = (App.Fourmiliere.Fourmiliere.Meteo.Etat == EtatMeteo.Soleil) ? new SolidColorBrush(Colors.SaddleBrown) :
+                                 (App.Fourmiliere.Fourmiliere.Meteo.Etat == EtatMeteo.Orage) ? new SolidColorBrush(Colors.Gray) :
+                                 new SolidColorBrush(Colors.Blue);
             var e = new Image();
             e.Source = new BitmapImage(new Uri("Ressources/fourmiliere.png", UriKind.Relative));
             Plateau.Children.Add(e);
@@ -128,13 +131,13 @@ namespace AnthillSim
         {
             App.Fourmiliere.DeleteFourmi();
         }
-        /*
-                private void Apropos_Click(object sender, RoutedEventArgs e)
-                {
-                    var ap = new Apropos();
-                    ap.ShowDialog();
-                    // App.Fourmiliere.DeleteFourmi();
-                }*/
+        
+        private void Apropos_Click(object sender, RoutedEventArgs e)
+        {
+            var ap = new Apropos(App.Fourmiliere.Fourmiliere);
+            ap.ShowDialog();
+            // App.Fourmiliere.DeleteFourmi();
+        }
 
         private void TourSuivant_Click(object sender, RoutedEventArgs e)
         {

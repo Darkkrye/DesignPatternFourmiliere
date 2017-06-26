@@ -16,7 +16,7 @@ namespace LibMetier
         internal List<ObjetAbstrait> ObjetAbstraitList;
         internal List<PersonnageAbstrait> PersonnageAbstraitList;
         internal List<ObjetAbstrait> stock;
-        internal Meteo Meteo { get; set; }
+        public Meteo Meteo { get; set; }
 
         public ZoneAbstraite Position { get; set; }
 

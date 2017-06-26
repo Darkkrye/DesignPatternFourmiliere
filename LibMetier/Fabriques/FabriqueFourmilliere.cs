@@ -48,7 +48,7 @@ namespace LibMetier
         }
         else
         {
-          throw new NotImplementedException();
+          return new Reine(nom, position);
         }
       }
 
