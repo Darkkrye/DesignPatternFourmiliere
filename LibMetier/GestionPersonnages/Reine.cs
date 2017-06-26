@@ -10,6 +10,8 @@ namespace LibMetier
 
         public override ZoneAbstraite PreviousPosition { get; set; }
         public ObservableCollection<Etape> EtapesList { get; set; }
+        public override EtatFourmiAbstrait EtatCourant { get; set; }
+
 
         public int X { get; set; }
         public int Y { get; set; }

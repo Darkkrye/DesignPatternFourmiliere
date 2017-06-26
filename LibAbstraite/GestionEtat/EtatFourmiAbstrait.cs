@@ -8,9 +8,7 @@ namespace LibAbstraite
 {
     public abstract class EtatFourmiAbstrait
     {
-        // à voir : faire un Etat abstrait supplémentaire ? (si besoin d'état autre que les fourmis)
-        PersonnageAbstrait Fourmi { get; set; }
-
-        //  TODO : Méthode abstraite d'action
+        
+        public abstract void ModifieEtat(PersonnageAbstrait personnage);
     }
 }

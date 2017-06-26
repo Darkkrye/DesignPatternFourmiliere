@@ -9,5 +9,10 @@ namespace LibMetier
 {
     public class EtatFourmiRepos :  EtatFourmiAbstrait
     {
+        public override void ModifieEtat(PersonnageAbstrait personnage)
+        {
+            personnage.EtatCourant = this;
+        }
+
     }
 }

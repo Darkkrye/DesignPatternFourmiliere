@@ -15,6 +15,7 @@ namespace LibAbstraite
         public abstract ZoneAbstraite PreviousPosition { get; set; }
         
         public abstract ZoneAbstraite ChoixZoneSuivante(List<AccesAbstrait> accesList);
+        public abstract EtatFourmiAbstrait EtatCourant { get; set; }
 
         public abstract void ChangementEtat(EtatFourmiAbstrait etatCourant);
 

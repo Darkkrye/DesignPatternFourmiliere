@@ -12,11 +12,13 @@ namespace LibMetier
         public override ZoneAbstraite Position { get; set; }
         public override ZoneAbstraite PreviousPosition { get; set; }// utilise pour ne pas retourner sur sa derniere position
         public override string Nom { get; set; }
-        public EtatFourmiAbstrait EtatCourant { get; set; }
+        public override EtatFourmiAbstrait EtatCourant { get; set; }
         
         public List<AccesAbstrait> pathToFood { get; set; }
         public ObjetAbstrait currentFood { get; set; }
         public override int Vie { get; set; }
+
+   //     public Fourmiliere fourmiliere
 
 
 
@@ -73,23 +75,22 @@ namespace LibMetier
         /// </summary>
         public void Avance()
         { }
-        /*
-
+        
         public override void Update(EtatMeteo Etat){
             switch (Etat) { 
                 case EtatMeteo.Soleil:
-                    //continue ta vie
+                    new EtatFourmiRechercheNourriture().ModifieEtat(this);
                     break;
                 case EtatMeteo.Orage:
-                    // meurt ?
+                    new EtatFourmiGoHome().ModifieEtat(this);
                     break;
                 case EtatMeteo.Pluie:
-                    //goHome
+                    new EtatFourmiGoHome().ModifieEtat(this);
                     break;
                 default:
                     break;
             }
-        }*/
+        }
 
 
 

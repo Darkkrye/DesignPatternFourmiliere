@@ -33,6 +33,7 @@ namespace LibMetier
 
 
         }
+
         public override void AjouteChemins(FabriqueAbstraite fabrique, params AccesAbstrait[] accesArray)
         {
             foreach (AccesAbstrait acces in accesArray)
@@ -222,7 +223,6 @@ namespace LibMetier
             }
         }
 
-
         public void AnalyseSituation()
         {
             gereVieFourmi();
@@ -235,8 +235,29 @@ namespace LibMetier
                     {
                         p.PreviousPosition = this.Position;
                     }
+
+
+
+
                     // if fourmi a de la nourriture 
                     if (p.GetFood())
+                    {
+                        new EtatFourmiGoHome().ModifieEtat(p);
+                    }
+                    else  // sinon recherche nouritture
+                    {
+                        if (Meteo.Etat != EtatMeteo.Soleil)
+                        {
+                            new EtatFourmiGoHome().ModifieEtat(p);
+                        }else
+                        {
+                            new EtatFourmiRechercheNourriture().ModifieEtat(p);
+                        }
+                        
+                    }
+
+
+                    if (p.EtatCourant.GetType() == new EtatFourmiGoHome().GetType())
                     {
                         //retourne à la fourmilière
                         var zone = goHome(p);
@@ -248,7 +269,7 @@ namespace LibMetier
                             DeplacerPersonnage(p, p.Position, zone);
                         }
                     }
-                    else  // sinon recherche nouritture
+                    else if (p.EtatCourant.GetType() == new EtatFourmiRechercheNourriture().GetType())
                     {
                         var pos = rechercheNourriture(p);
                         if (pos != null)
@@ -391,7 +412,6 @@ namespace LibMetier
 
             return null;
         }
-
 
         //Fonction à finir, créer une variable pour savoir comment les fourmis peuvent rentrer
         public ZoneAbstraite goHome(PersonnageAbstrait p)

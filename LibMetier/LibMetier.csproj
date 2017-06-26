@@ -29,6 +29,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Etape.cs" />
+    <Compile Include="GestionEtat\EtatFourmiGoHome.cs" />
+    <Compile Include="GestionEtat\EtatFourmiRechercheNourriture.cs" />
     <Compile Include="GestionEtat\EtatFourmiRepos.cs" />
     <Compile Include="GestionMeteo\Meteo.cs" />
     <Compile Include="GestionPersonnages\Reine.cs" />
