@@ -8,9 +8,17 @@ namespace LibAbstraite
 {
     public abstract class ObserverAbstrait
     {
-        public abstract string Etat { get; set; }
+        public abstract EtatMeteo Etat { get; set; }
 
-        public abstract void Update();
+        public abstract List<PersonnageAbstrait> observers { get; set; }
+
+        public abstract void Subscribe(PersonnageAbstrait personnage);
+
+        public abstract void Unsubscribe(PersonnageAbstrait personnage);
+
+        public abstract void Notify();
+
+
 
     }
 }

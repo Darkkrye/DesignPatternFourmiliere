@@ -15,15 +15,6 @@ namespace LibMetier
 
         public override string Etat { get; set; }
 
-        public override void Update()
-        {
-            if (Etat == PLUIE)
-                Etat = SOLEIL;
-            else if (Etat == SOLEIL)
-                Etat = PLUIE;
-            else
-                Etat = SOLEIL;
-
-        }
+     
     }
 }

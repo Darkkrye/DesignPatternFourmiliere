@@ -11,11 +11,12 @@ namespace LibMetier
         public override ZoneAbstraite PreviousPosition { get; set; }
         public ObservableCollection<Etape> EtapesList { get; set; }
 
-        public override List<ObserverAbstrait> observers { get; set; }
         public int X { get; set; }
         public int Y { get; set; }
 
         public override string Nom { get; set; }
+
+        public override int Vie { get; set; }
 
         public override ZoneAbstraite Position { get; set; }
 
@@ -26,6 +27,7 @@ namespace LibMetier
 
             EtapesList = new ObservableCollection<Etape>();
             EtapesList.Add(new Etape() { NumeroTour = 1, X = X, Y = Y });
+            this.Vie = 100;
         }
 
         public override void ChangementEtat(EtatFourmiAbstrait etatCourant)
@@ -38,5 +40,7 @@ namespace LibMetier
             // TODO
             return null;
         }
+
+        
     }
 }

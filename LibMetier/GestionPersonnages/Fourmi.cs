@@ -16,8 +16,7 @@ namespace LibMetier
         
         public List<AccesAbstrait> pathToFood { get; set; }
         public ObjetAbstrait currentFood { get; set; }
-
-        public override List<ObserverAbstrait> observers { get; set; }
+        public override int Vie { get; set; }
 
 
 
@@ -42,6 +41,7 @@ namespace LibMetier
             EtapesList = new ObservableCollection<Etape>();
             EtapesList.Add(new Etape() { NumeroTour = 1, X = X, Y = Y });
             Nom = nom;
+            this.Vie = 100;
         }
 
     //    public Fourmi(string nom, ZoneAbstraite position, TypePersonnage typeP) : base(nom, position)
@@ -73,6 +73,23 @@ namespace LibMetier
         /// </summary>
         public void Avance()
         { }
+        /*
+
+        public override void Update(EtatMeteo Etat){
+            switch (Etat) { 
+                case EtatMeteo.Soleil:
+                    //continue ta vie
+                    break;
+                case EtatMeteo.Orage:
+                    // meurt ?
+                    break;
+                case EtatMeteo.Pluie:
+                    //goHome
+                    break;
+                default:
+                    break;
+            }
+        }*/
 
 
 
