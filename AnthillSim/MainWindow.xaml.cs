@@ -56,7 +56,6 @@ namespace AnthillSim
                 Plateau.RowDefinitions.Add(new RowDefinition());
             }
 
-
             dessineFourmiliere();
             dessineObjet();
             dessineFourmi();
@@ -114,9 +113,10 @@ namespace AnthillSim
 
         public void dessineFourmiliere()
         {
-            Plateau.Background = (App.Fourmiliere.Fourmiliere.Meteo.Etat == EtatMeteo.Soleil) ? new SolidColorBrush(Colors.SaddleBrown) :
+            var color = (App.Fourmiliere.Fourmiliere.Meteo.Etat == EtatMeteo.Soleil) ? new SolidColorBrush(Colors.SaddleBrown) :
                                  (App.Fourmiliere.Fourmiliere.Meteo.Etat == EtatMeteo.Orage) ? new SolidColorBrush(Colors.Gray) :
                                  new SolidColorBrush(Colors.Blue);
+            Plateau.Background = color;
             var e = new Image();
             e.Source = new BitmapImage(new Uri("Ressources/fourmiliere.png", UriKind.Relative));
             Plateau.Children.Add(e);

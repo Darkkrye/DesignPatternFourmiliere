@@ -45,9 +45,10 @@ namespace LibMetier
 
         public void ChangementMeteo() {
             var r = rand.Next(0, 100);
+           
             // équivalent à if / else if / else
-            Etat =  (r < 10) ? EtatMeteo.Orage :
-                    (r > 65) ? EtatMeteo.Pluie :  EtatMeteo.Soleil;
+           Etat =  (r < 10) ? EtatMeteo.Orage :
+                   (r > 65) ? EtatMeteo.Pluie :  EtatMeteo.Soleil;
             Notify();
         }
      

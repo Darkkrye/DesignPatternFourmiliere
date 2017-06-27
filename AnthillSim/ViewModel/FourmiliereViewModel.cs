@@ -24,14 +24,14 @@ namespace AnthillSim
 
         public Fourmiliere Fourmiliere { get; set; }
         public FabriqueAbstraite Fabrique { get; set; }
-        public Meteo Meteo { get; set; }
+        
 
         private bool EnCours = false;
         private bool continu = false;
 
         public FourmilierViewModel()
         {
-            Meteo = new Meteo();
+            
             NomApplication = "Fourmiliere";
             DimensionX = 10;
             DimensionY = 10;
@@ -47,7 +47,7 @@ namespace AnthillSim
         {
             ListObjet = Fourmiliere.getObjets();
             ListFourmis = Fourmiliere.getPersonnages();
-            Meteo.observers = ListFourmis;
+            Fourmiliere.Meteo.observers = ListFourmis;
         }
 
         public void InitFourmiliere()
@@ -276,7 +276,7 @@ namespace AnthillSim
                 continu = false;
             else
                 Fourmiliere.Simuler();
-            Meteo.ChangementMeteo();
+            Fourmiliere.Meteo.ChangementMeteo();
             Refresh();
 
             /*
