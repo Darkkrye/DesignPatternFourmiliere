@@ -418,35 +418,6 @@ namespace LibMetier
                         }
                     }
 
-                    /*foreach (ObjetAbstrait o in ObjetAbstraitList)
-                    {
-                        cpt++;
-                        zone.Add(a.fin);
-                        if(o.Type == TypeObjet.Nourriture)
-                        {
-                            if (a.fin == o.Position)
-                            {
-                                fourmi.SetFood(true); // La fourmi récupère la nourriture
-                                fourmi.currentFood = o;
-                                if(o.Vie > 0) // ici je check le nombre de portion restante a la nourriture
-                                {
-                                    o.Vie -= 2; // avec 2, il faut 5 tour a la fourmi pour recuperer tout l'objet nourriture
-                                }
-                                else
-                                {
-                                    ObjetAbstraitList.Remove(o); // Elle disparaît de la liste des nourriture.
-                                }
-                                AjouteObjet(new Pheromone("test" + "test" + a.fin.X + a.fin.Y, a.fin));
-                                return a.fin;
-                            }
-                        }else if(o.Type == TypeObjet.Pheromone)
-                        {
-                            if (a.fin == o.Position)
-                            {
-                                return a.fin;
-                            }
-                        }
-                    }*/
                 }
             }
 

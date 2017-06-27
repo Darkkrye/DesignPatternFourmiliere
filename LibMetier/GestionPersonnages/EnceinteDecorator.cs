@@ -15,7 +15,6 @@ namespace LibMetier.GestionPersonnages
         public int nbJourPregnant { get; set; }
 
         public override ZoneAbstraite PreviousPosition { get; set; }
-        public ObservableCollection<Etape> EtapesList { get; set; }
 
         
         public int X { get; set; }
@@ -44,8 +43,6 @@ namespace LibMetier.GestionPersonnages
             Type = TypePersonnage.Reine;
             this.Nom = personnage.Nom;
             this.Position = personnage.Position;
-            EtapesList = new ObservableCollection<Etape>();
-            EtapesList.Add(new Etape() { NumeroTour = 1, X = X, Y = Y });
             this.Vie = 100;
 
             this.nbJourPregnant = 0;
