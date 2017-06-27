@@ -21,9 +21,11 @@ namespace LibMetier
         public ZoneAbstraite Position { get; set; }
         public Meteo Meteo { get; set; }
 
+        public FabriqueFourmilliere fabrique;
+
         public Fourmiliere()
         {
-
+            fabrique = FabriqueFourmilliere.Instance();
             AccesAbstraitsList = new List<AccesAbstrait>();
             ZoneAbstraiteList = new List<ZoneAbstraite>();
             ObjetAbstraitList = new List<ObjetAbstrait>();
@@ -107,31 +109,6 @@ namespace LibMetier
         {
             string result = "";
 
-            result += "\nZone : \n";
-            foreach (ZoneAbstraite a in ZoneAbstraiteList)
-            {
-                result += "Nom = " + a.Nom + ", ";
-                result += "Position = " + a.X + ", " + a.Y + "\n";
-
-            }
-
-            result += "Acces : \n";
-            foreach (AccesAbstrait a in AccesAbstraitsList)
-            {
-                if (a != null)
-                {
-                    result += "Début = " + a.debut.Nom + ", ";
-                    result += "Fin = " + a.fin.Nom + "\n";
-                }
-            }
-
-            result += "\nObjet : \n";
-            foreach (ObjetAbstrait a in ObjetAbstraitList)
-            {
-                result += "Nom = " + a.Nom + ", ";
-                result += "Position = " + a.Position.X + ", " + a.Position.Y + "\n";
-            }
-
             result += "\nPersonnage : \n";
             foreach (PersonnageAbstrait a in PersonnageAbstraitList)
             {
@@ -144,10 +121,17 @@ namespace LibMetier
                 result += "Position = " + a.Position.X + ", " + a.Position.Y + "\n";
             }
 
-            result += "\nStock : \n";
+            result += "\nObjet sur la map : \n";
+            foreach (ObjetAbstrait a in ObjetAbstraitList)
+            {
+                result += "Nom = " + a.Nom + ", vie = " + a.Vie + ", type = " + a.Type + ", ";
+                result += "Position = " + a.Position.X + ", " + a.Position.Y + "\n";
+            }
+
+            result += "\nNourriture en Stock : \n";
             foreach (ObjetAbstrait a in stock)
             {
-                result += "Nom = " + a.Nom + ", \n";
+                result += "Nom = " + a.Nom + ", vie = "+ a.Vie + ", type = " + a.Type + ", \n";
             }
 
             return result;
@@ -158,18 +142,23 @@ namespace LibMetier
             return ZoneAbstraiteList;
         }
 
+        // gere la nombre de point de vie de la fourmi, ajoute des points si il y a de la nourriture en stock sinon enleve des points de vie
+        // supprime une fourmi de la fourmiliere si plus de point de vie
         public void gereVieFourmi()
         {
             List<PersonnageAbstrait> toRemove = new List<PersonnageAbstrait>();
 
             foreach (PersonnageAbstrait o in PersonnageAbstraitList)
             {
-                // todo check si nourriture en stock dans la fourmiliere + suppresion nourriture
+                // check si nourriture en stock dans la fourmiliere + suppresion nourriture
                 if (stock.Count > 0 && o.Vie < 100 && o.Position == this.Position)
                 {
                     if (o.Position == this.Position)
                     {
-                        // on supprime une nourriture du stock + ajoute 7 de vie a la fourmi
+                        // une nourriture est compose de 10 portions et une foumi mange 2 portions a chaque fois qu'elle se trouve dans la fourmiliere
+                        // on verifie le nombre de portion restante de la 1er pheromone en stock :
+                        // si il reste des portions, on enleve 2 portions a la pheromone + ajoute 10 de vie a la fourmi
+                        // sinon 
                         if (stock.ElementAt(0).Vie > 0)
                         {
                             stock.ElementAt(0).Vie -= 2;
@@ -193,7 +182,7 @@ namespace LibMetier
                 }
                 else
                 {
-                    // -5 de vie par fourmi par tour si pas de nourriture
+                    // -2 de vie par fourmi par tour si pas de nourriture
                     o.Vie -= 2;
                 }
                 // si une fourmi a plus de vie, on la rajoute ds une nouvelle liste des fourmi a supprimer
@@ -217,10 +206,12 @@ namespace LibMetier
             {
                 if (o.Type == TypeObjet.Pheromone)
                 {
+                    // a chaque tour, si la pheromone a plus de 0, on lui enelve 10 de vie
                     if (o.Vie > 0)
                     {
                         o.Vie -= 10;
                     }
+                    // on la supprime sinon
                     else
                     {
                         toRemove.Add(o);
@@ -228,127 +219,36 @@ namespace LibMetier
                 }
 
             }
-
+            // la suppression de la pheromone se fait ici
             foreach (ObjetAbstrait ro in toRemove)
             {
                 this.ObjetAbstraitList.Remove(ro);
             }
         }
 
-        public void gereReineEnceinte()
-        {
-          
-                    bool antBorn = false;
-                    ReineEnceinte reineE = null;
-                    PersonnageAbstrait reine = null;
-                    ReineEnceinte queen = null;
-                    List<PersonnageAbstrait> toRemove = new List<PersonnageAbstrait>();
-                    Random random = new Random();
-                    int resultat = random.Next(0, 5);
-                    Fourmi newFourmi = null;
-                    foreach (PersonnageAbstrait p in PersonnageAbstraitList)
-                    {
-                        if (p is ReineEnceinte)
-                        {
-                            queen = (ReineEnceinte)p;
-
-                            if (queen.isAntBorn())
-                            {
-                                antBorn = true;
-                                newFourmi = new Fourmi("Fourmi n" + PersonnageAbstraitList.Count, this.Position);
-                                toRemove.Add(p);
-                            }
-                        }
-
-                    }
-
-                    if (queen != null && antBorn == true)
-                    {
-                        reine = queen.reine;
-                        foreach (PersonnageAbstrait ro in toRemove)
-                        {
-                            this.PersonnageAbstraitList.Remove(ro);
-                        }
-                        this.AjoutePersonnage(reine);
-                        this.AjoutePersonnage(newFourmi);
-                    }
-                    reine = null;
-
-                    if (resultat == 0)
-                    {
-                        foreach (PersonnageAbstrait p in PersonnageAbstraitList)
-                        {
-                            if (p.Type == TypePersonnage.Reine && p is Reine)
-                            {
-                                reine = p;
-                                toRemove.Add(p);
-                            }
-
-                        }
-                        if (reine != null)
-                        {
-                            foreach (PersonnageAbstrait ro in toRemove)
-                            {
-                                this.PersonnageAbstraitList.Remove(ro);
-                            }
-                            reineE = new ReineEnceinte(reine);
-                            this.AjoutePersonnage(reineE);
-                        }
-
-                    }
-                    // verif doublons
-                    bool checkReine = false;
-                    bool checkReineEnceinte = false;
-                    List<PersonnageAbstrait> toRemoveCheck = new List<PersonnageAbstrait>();
-                    foreach (PersonnageAbstrait p in PersonnageAbstraitList)
-                    {
-                        if (p is Reine)
-                        {
-                            if (checkReine)
-                            {
-                                toRemoveCheck.Add(p);
-                            }
-                            checkReine = true;
-                        }
-                        if (p is ReineEnceinte)
-                        {
-                            if (checkReineEnceinte)
-                            {
-                                toRemoveCheck.Add(p);
-                            }
-                            checkReineEnceinte = true;
-                        }
-                    }
-                    foreach (PersonnageAbstrait p in toRemoveCheck)
-                    {
-                        this.PersonnageAbstraitList.Remove(p);
-                    }
-
-                    
-                }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         public void AnalyseSituation()
         {
-            gereReineEnceinte();
+            // gere la nombre de point de vie de la fourmi, ajoute des points si il y a de la nourriture en stock sinon enleve des points de vie
+            // supprime une fourmi de la fourmiliere si plus de point de vie
             gereVieFourmi();
             gerePheromoneVie();
+            bool enceinte = false;
+            Reine r = null;
+            // je parcours la liste des fourmi pour donner l'ordre de :
+            //  tomber enceinte et donner naissance pour la reine
+            // chercher de la nourriture ou ramener de la nourriture pour les autres fourmis
             foreach (PersonnageAbstrait p in PersonnageAbstraitList)
             {
+                if(p.Type == TypePersonnage.Reine)
+                {
+                    r = (Reine)p;
+                    r.changementEtat();
+                    if(r.nbJourEnceinte > 4)
+                    {
+                        enceinte = true;
+                        
+                    }
+                }
                 if (p.Type == TypePersonnage.ChercheuseDeNourriture)
                 {
                     if (p.Position == this.Position)
@@ -374,19 +274,19 @@ namespace LibMetier
 
                     }
 
-                    if (p.EtatCourant.GetType() == new EtatFourmiGoHome().GetType())
+                    if (p.EtatCourant is EtatFourmiGoHome)
                     {
                         //retourne à la fourmilière
                         var zone = goHome(p);
                         if (zone != null)
                         {
                             if (p.Position != this.Position && zone != this.Position)
-                                AjouteObjet(new Pheromone("test" + zone.X + zone.Y, zone));
+                                AjouteObjet(new Pheromone("pheromone", zone));
 
                             DeplacerPersonnage(p, p.Position, zone);
                         }
                     }
-                    else if (p.EtatCourant.GetType() == new EtatFourmiRechercheNourriture().GetType())
+                    else if (p.EtatCourant is EtatFourmiRechercheNourriture)
                     {
                         var pos = rechercheNourriture(p);
                         if (pos != null)
@@ -394,6 +294,13 @@ namespace LibMetier
                     }
                 }
 
+            }
+            if (enceinte)
+            {
+                //var f = fabrique.CreerPersonnage("Fourmi " + PersonnageAbstraitList.Count, TypePersonnage.ChercheuseDeNourriture, this.Position);
+                //this.AjoutePersonnage(f);
+                r.nbJourEnceinte = 0;
+                new EtatFourmiRepos().ModifieEtat(r);
             }
             time.jourSuivant();
 
@@ -519,8 +426,15 @@ namespace LibMetier
 
                 if (ObjetAbstraitList.Count() == 0) // Il n'y a plus d'objets à chercher, la fourmi reste à la maison
                     return this.Position;
-                else // Il reste des objets sur la carte, la fourmi repart
-                    return this.rechercheNourriture(p);
+                else
+                {
+                    if (fourmi.EtatCourant is EtatFourmiRechercheNourriture)
+                    {
+                        // Il reste des objets sur la carte, la fourmi repart
+                        return this.rechercheNourriture(p);
+                    }
+                    
+                }
             }
 
             foreach (ZoneAbstraite z in ZoneAbstraiteList)

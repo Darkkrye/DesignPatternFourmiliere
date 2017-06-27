@@ -32,10 +32,9 @@
     <Compile Include="GestionEtat\EtatFourmiGoHome.cs" />
     <Compile Include="GestionEtat\EtatFourmiRechercheNourriture.cs" />
     <Compile Include="GestionEtat\EtatFourmiRepos.cs" />
+    <Compile Include="GestionEtat\EtatReineEnceinte.cs" />
     <Compile Include="GestionMeteo\Meteo.cs" />
-    <Compile Include="GestionPersonnages\EnceinteDecorator.cs" />
     <Compile Include="GestionPersonnages\Reine.cs" />
-    <Compile Include="GestionPersonnages\ReineEnceinte.cs" />
     <Compile Include="GestionSauvegarde\ParserXML.cs" />
     <Compile Include="GestionTemps\temps.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

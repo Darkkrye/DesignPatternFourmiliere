@@ -47,15 +47,6 @@ namespace LibMetier
             this.Vie = 100;
         }
 
-    //    public Fourmi(string nom, ZoneAbstraite position, TypePersonnage typeP) : base(nom, position)
-	//	{
-	//		Type = typeP;
-	//		rand = new Random();
-	//		EtapesList = new ObservableCollection<Etape>();
-	//		EtapesList.Add(new Etape() { NumeroTour = 1, X = X, Y = Y });
-	//		//Nom = nom;
-	//		//Affichage = Nom + X + Y;
-	//	}
 
         public Fourmi() : base("", null)
         {

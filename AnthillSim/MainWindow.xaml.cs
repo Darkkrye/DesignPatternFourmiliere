@@ -68,9 +68,7 @@ namespace AnthillSim
                 if (!(item.Position.X == App.Fourmiliere.Fourmiliere.Position.X &&
                     item.Position.Y == App.Fourmiliere.Fourmiliere.Position.Y))
                 {
-                    /*  Ellipse e = new Ellipse();
-                      e.Fill = new SolidColorBrush(Colors.AliceBlue);
-                      e.Margin = new Thickness(3);*/
+                    
                     var e = new Image();
                     if (item.GetFood())
                         e.Source = new BitmapImage(new Uri("Ressources/antWithSalade.png", UriKind.Relative));
@@ -139,7 +137,7 @@ namespace AnthillSim
         {
             var ap = new Apropos(App.Fourmiliere.Fourmiliere);
             ap.ShowDialog();
-            // App.Fourmiliere.DeleteFourmi();
+            
         }
 
         private void TourSuivant_Click(object sender, RoutedEventArgs e)
@@ -185,7 +183,7 @@ namespace AnthillSim
                         fileName = fileName + i + ".json";
                 } while (!etat);
 
-                //    File.Create(fileName);
+                
                 File.WriteAllText(fileName, ParserXML.Sauvegarder(App.Fourmiliere.Fourmiliere));
             }
 

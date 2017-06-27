@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using LibMetier;
 using LibAbstraite;
+using System.Windows.Forms;
+using System.IO;
+using Newtonsoft.Json;
 
 namespace AnthillSim.Console
 {
@@ -16,12 +19,13 @@ namespace AnthillSim.Console
 
     {
         // taille de l'environnement
-        public const int maxX = 3;
-        public const int maxY = 3;
+        public const int maxX = 20;
+        public const int maxY = 20;
         // nombre objet + fourmi
-        public const int nombreObjet = 3;
-        public const int nombreFourmi = 2;
+        public const int nombreObjet = 6;
+        public const int nombreFourmi = 5;
 
+        [STAThread]
         static void Main(string[] args)
         {
             
@@ -78,9 +82,55 @@ namespace AnthillSim.Console
             System.Console.WriteLine("Voici les résultats :");
             System.Console.WriteLine(f.Statistiques());
             System.Console.WriteLine("");
+            initialisation.Sauvegarder(f);
 			System.Console.WriteLine("AntHillSim par BRUNIE Romain, RUSSIER Salomé, BOUDON Pierre et FOURNIER David");
 			System.Console.WriteLine("Appuyez sur une touche pour fermer");
             System.Console.ReadKey();
+
+        }
+
+        void Sauvegarder(Fourmiliere f)
+        {
+
+            string folderName = "";
+            FolderBrowserDialog browse = new FolderBrowserDialog();
+
+            DialogResult result = browse.ShowDialog();
+            if (result.ToString() == "OK")
+            {
+                folderName = browse.SelectedPath;
+
+
+
+                int i = 0;
+                bool etat = false;
+                var fileName = folderName + "/save";
+
+                do
+                {
+                    i++;
+                    etat = (!File.Exists(fileName + i + ".json"));
+                    if (etat)
+                        fileName = fileName + i + ".json";
+                } while (!etat);
+
+
+                File.WriteAllText(fileName, Sauvegarde(f));
+            }
+
+        }
+
+        private static JsonSerializerSettings settings = new JsonSerializerSettings
+        {
+            TypeNameHandling = TypeNameHandling.Objects
+        };
+
+        string Sauvegarde(Fourmiliere fourmiliere)
+        {
+            
+        var tmp = JsonConvert.SerializeObject(fourmiliere, Formatting.Indented, settings);
+
+            return tmp.ToString();
 
         }
 

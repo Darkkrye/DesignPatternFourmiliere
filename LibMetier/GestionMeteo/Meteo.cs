@@ -50,14 +50,14 @@ namespace LibMetier
 
             switch (Etat) {
                 case EtatMeteo.Soleil:
-                    Etat =  (r < 5 ) ? EtatMeteo.Orage :
-                            (r > 85) ? EtatMeteo.Pluie : EtatMeteo.Soleil;
+                    Etat =  (r < 1 ) ? EtatMeteo.Orage :
+                            (r > 95) ? EtatMeteo.Pluie : EtatMeteo.Soleil;
                     break;
                 case EtatMeteo.Pluie:
-                    VerifCompteur(5);
+                    VerifCompteur(3);
                     break;
                 case EtatMeteo.Orage:
-                    VerifCompteur(10);
+                    VerifCompteur(5);
                     break;
             }
            
