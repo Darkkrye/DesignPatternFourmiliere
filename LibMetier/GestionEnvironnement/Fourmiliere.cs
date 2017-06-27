@@ -512,8 +512,8 @@ namespace LibMetier
                 if (fourmi.GetFood())
                 {
                     fourmi.SetFood(false);
-                    fourmi.currentFood.Vie = 10;
-                    this.stock.Add(fourmi.currentFood); // La nourriture est ajoutée aux stocks de la fourmilière.
+                    Nourriture n = new Nourriture(fourmi.currentFood.Nom, fourmi.currentFood.Position);
+                    this.stock.Add(n); // La nourriture est ajoutée aux stocks de la fourmilière.
                     fourmi.currentFood = null; // La fourmi se décharge de sa nourriture
                 }
 
