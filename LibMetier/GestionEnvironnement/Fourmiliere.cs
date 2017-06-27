@@ -238,6 +238,7 @@ namespace LibMetier
         public void gereReineEnceinte()
         {
             bool antBorn = false;
+            ReineEnceinte reineE = null;
             PersonnageAbstrait reine = null;
             ReineEnceinte queen = null;
             List<PersonnageAbstrait> toRemove = new List<PersonnageAbstrait>();
@@ -257,9 +258,9 @@ namespace LibMetier
                         toRemove.Add(p);
                     }
                 }
-                
+
             }
-            
+
             if (queen != null && antBorn == true)
             {
                 reine = queen.reine;
@@ -271,7 +272,7 @@ namespace LibMetier
                 this.AjoutePersonnage(newFourmi);
             }
             reine = null;
-            
+
             if (resultat == 0)
             {
                 foreach (PersonnageAbstrait p in PersonnageAbstraitList)
@@ -281,7 +282,7 @@ namespace LibMetier
                         reine = p;
                         toRemove.Add(p);
                     }
-                    
+
                 }
                 if (reine != null)
                 {
@@ -289,12 +290,38 @@ namespace LibMetier
                     {
                         this.PersonnageAbstraitList.Remove(ro);
                     }
-                    ReineEnceinte reineE = new ReineEnceinte(reine);
+                    reineE = new ReineEnceinte(reine);
                     this.AjoutePersonnage(reineE);
                 }
 
             }
-            
+            // verif doublons
+            bool checkReine = false;
+            bool checkReineEnceinte = false;
+            List<PersonnageAbstrait> toRemoveCheck = new List<PersonnageAbstrait>();
+            foreach (PersonnageAbstrait p in PersonnageAbstraitList)
+            {
+                if (p is Reine)
+                {
+                    if (checkReine)
+                    {
+                        toRemoveCheck.Add(p);
+                    }
+                    checkReine = true;
+                }
+                if (p is ReineEnceinte)
+                {
+                    if (checkReineEnceinte)
+                    {
+                        toRemoveCheck.Add(p);
+                    }
+                    checkReineEnceinte = true;
+                }
+            }
+            foreach (PersonnageAbstrait p in toRemoveCheck)
+            {
+                this.PersonnageAbstraitList.Remove(p);
+            }
         }
 
         public void AnalyseSituation()
