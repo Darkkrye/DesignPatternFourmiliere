@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using LibAbstraite;
 
-namespace LibMetier.GestionPersonnages
+namespace LibMetier
 {
-    class ReineEnceinte : EnceinteDecorator
+    public class ReineEnceinte : EnceinteDecorator
     {
         public ReineEnceinte(PersonnageAbstrait personnage) : base(personnage)
         {

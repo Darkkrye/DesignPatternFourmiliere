@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -17,6 +16,8 @@ using System.Threading;
 using Microsoft.Win32;
 using LibMetier;
 using LibAbstraite;
+using System.Windows;
+using System.Windows.Forms;
 
 namespace AnthillSim
 {
@@ -35,7 +36,7 @@ namespace AnthillSim
             Apropos.Click += Apropos_Click;
             TourSuivant.Click += TourSuivant_Click;
             dessine();
-            
+
         }
 
         private void dessine()
@@ -65,8 +66,9 @@ namespace AnthillSim
         {
             foreach (var item in App.Fourmiliere.ListFourmis)
             {
-                if (!(item.Position.X == App.Fourmiliere.Fourmiliere.Position.X && 
-                    item.Position.Y == App.Fourmiliere.Fourmiliere.Position.Y)){
+                if (!(item.Position.X == App.Fourmiliere.Fourmiliere.Position.X &&
+                    item.Position.Y == App.Fourmiliere.Fourmiliere.Position.Y))
+                {
                     /*  Ellipse e = new Ellipse();
                       e.Fill = new SolidColorBrush(Colors.AliceBlue);
                       e.Margin = new Thickness(3);*/
@@ -96,7 +98,8 @@ namespace AnthillSim
                     Plateau.Children.Add(e);
                     Grid.SetColumn(e, item.Position.X);
                     Grid.SetRow(e, item.Position.Y);
-                }else if( item.Type == TypeObjet.Pheromone)
+                }
+                else if (item.Type == TypeObjet.Pheromone)
                 {
                     var e = new Image();
                     e.Source = new BitmapImage(new Uri("Ressources/pheromone.png", UriKind.Relative));
@@ -105,7 +108,7 @@ namespace AnthillSim
                     Grid.SetColumn(e, item.Position.X);
                     Grid.SetRow(e, item.Position.Y);
                 }
-               
+
             }
         }
 
@@ -131,7 +134,7 @@ namespace AnthillSim
         {
             App.Fourmiliere.DeleteFourmi();
         }
-        
+
         private void Apropos_Click(object sender, RoutedEventArgs e)
         {
             var ap = new Apropos(App.Fourmiliere.Fourmiliere);
@@ -157,16 +160,52 @@ namespace AnthillSim
             App.Fourmiliere.Stop();
         }
 
+        private void Sauvegarder_Click(object sender, RoutedEventArgs e)
+        {
+
+            string folderName = "";
+            FolderBrowserDialog browse = new FolderBrowserDialog();
+
+            DialogResult result = browse.ShowDialog();
+            if (result.ToString() == "OK")
+            {
+                folderName = browse.SelectedPath;
+
+
+
+                int i = 0;
+                bool etat = false;
+                var fileName = folderName + "/save";
+
+                do
+                {
+                    i++;
+                    etat = (!File.Exists(fileName + i + ".json"));
+                    if (etat)
+                        fileName = fileName + i + ".json";
+                } while (!etat);
+
+                //    File.Create(fileName);
+                File.WriteAllText(fileName, ParserXML.Sauvegarder(App.Fourmiliere.Fourmiliere));
+            }
+
+        }
 
         private void Charger_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
+            string filename = "";
+            Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog();
             openFileDialog.Title = "Charger une Fourmiliere";
-            openFileDialog.Filter = "Fichier XML (*.xml)|*.xml|Tous les fichiers (*.*)|*.*";
+            openFileDialog.Filter = "Fichier JSON (*.json)|*.json|Tous les fichiers (*.*)|*.*";
 
             if (openFileDialog.ShowDialog() == true)
-                ParserXML.Charger(openFileDialog.FileName);
+            {
+                filename = openFileDialog.FileName;
 
+            var res = ParserXML.Charger(File.ReadAllText(filename));
+
+
+            }
 
         }
     }

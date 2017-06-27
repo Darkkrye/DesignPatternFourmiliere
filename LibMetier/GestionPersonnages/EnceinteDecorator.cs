@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using LibAbstraite;
 using System.Collections.ObjectModel;
 
-namespace LibMetier.GestionPersonnages
+namespace LibMetier
 {
     public class EnceinteDecorator : PersonnageAbstrait
     {
@@ -16,7 +16,7 @@ namespace LibMetier.GestionPersonnages
 
         public override ZoneAbstraite PreviousPosition { get; set; }
 
-        
+
         public int X { get; set; }
         public int Y { get; set; }
 
@@ -40,14 +40,20 @@ namespace LibMetier.GestionPersonnages
 
         protected EnceinteDecorator(PersonnageAbstrait personnage)
         {
-            Type = TypePersonnage.Reine;
-            this.Nom = personnage.Nom;
-            this.Position = personnage.Position;
-            this.Vie = 100;
+            this.
+                Type = TypePersonnage.Reine;
+                this.Nom = personnage.Nom;
+                this.Position = personnage.Position;
+                this.Vie = 100;
 
-            this.nbJourPregnant = 0;
+                this.nbJourPregnant = 0;
             this.reine = personnage;
+            //    this.oeuf = new Oeuf("oeuf",2,Position);
+            
         }
+      
+        
+
 
         public bool isAntBorn()
         {
@@ -66,6 +72,10 @@ namespace LibMetier.GestionPersonnages
 
         }
 
-        
+        public void setPregnant() {
+            nbJourPregnant = 2;
+        }
+
+
     }
 }

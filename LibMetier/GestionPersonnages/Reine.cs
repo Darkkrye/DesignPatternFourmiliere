@@ -8,6 +8,9 @@ namespace LibMetier
     public class Reine : PersonnageAbstrait
     {
 
+      
+      
+        
         public override ZoneAbstraite PreviousPosition { get; set; }
         public ObservableCollection<Etape> EtapesList { get; set; }
         public override EtatFourmiAbstrait EtatCourant { get; set; }
@@ -45,7 +48,7 @@ namespace LibMetier
             // TODO
             return null;
         }
-
         
+    
     }
 }

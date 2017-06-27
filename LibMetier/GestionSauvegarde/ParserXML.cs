@@ -13,20 +13,24 @@ namespace LibMetier
 {
     public class ParserXML
     {
-        private static JsonSerializer serializer;
-
-        public static Fourmiliere Charger(string fileName)
+        private static JsonSerializerSettings settings = new JsonSerializerSettings
         {
-            var result = new Fourmiliere();
+            TypeNameHandling = TypeNameHandling.Objects
+        };
 
-            return result;
+        public static Fourmiliere Charger(string content)
+        {
+
+            var tmp = JsonConvert.DeserializeObject<Fourmiliere>(content, settings);
+
+            return tmp;
         }
 
-        public static void Sauvegarder(string fileName, Fourmiliere fourmiliere)
+        public static string  Sauvegarder(Fourmiliere fourmiliere)
         {
-            var content = JsonConvert.SerializeObject(fourmiliere);
-            var stream = await file.OpenStreamForWriteAsync();
+            var tmp =  JsonConvert.SerializeObject(fourmiliere, Formatting.Indented, settings);
 
+            return tmp.ToString();
 
         }
     }

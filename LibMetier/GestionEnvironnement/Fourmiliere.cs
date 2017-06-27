@@ -5,8 +5,7 @@ using System.Linq;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
-using LibMetier.GestionPersonnages;
-using LibMetier.GestionTemps;
+using LibMetier;
 
 namespace LibMetier
 {
@@ -17,10 +16,10 @@ namespace LibMetier
         internal List<ObjetAbstrait> ObjetAbstraitList;
         internal List<PersonnageAbstrait> PersonnageAbstraitList;
         public List<ObjetAbstrait> stock { get; set; }
-        public Meteo Meteo { get; set; }
+
         public temps time { get; set; }
         public ZoneAbstraite Position { get; set; }
-
+        public Meteo Meteo { get; set; }
 
         public Fourmiliere()
         {
@@ -168,28 +167,29 @@ namespace LibMetier
                 // todo check si nourriture en stock dans la fourmiliere + suppresion nourriture
                 if (stock.Count > 0 && o.Vie < 100 && o.Position == this.Position)
                 {
-                    if(o.Position == this.Position)
+                    if (o.Position == this.Position)
                     {
                         // on supprime une nourriture du stock + ajoute 7 de vie a la fourmi
-                        if(stock.ElementAt(0).Vie > 0)
+                        if (stock.ElementAt(0).Vie > 0)
                         {
                             stock.ElementAt(0).Vie -= 2;
-                            if(stock.ElementAt(0).Vie == 0)
+                            if (stock.ElementAt(0).Vie == 0)
                             {
                                 stock.RemoveAt(0);
                             }
-                        }else
+                        }
+                        else
                         {
                             stock.RemoveAt(0);
                         }
-                        
+
                         o.Vie += 10;
-                        if(o.Vie > 100)
+                        if (o.Vie > 100)
                         {
                             o.Vie = 100;
                         }
                     }
-                    
+
                 }
                 else
                 {
@@ -226,7 +226,7 @@ namespace LibMetier
                         toRemove.Add(o);
                     }
                 }
-                
+
             }
 
             foreach (ObjetAbstrait ro in toRemove)
@@ -237,92 +237,110 @@ namespace LibMetier
 
         public void gereReineEnceinte()
         {
-            bool antBorn = false;
-            ReineEnceinte reineE = null;
-            PersonnageAbstrait reine = null;
-            ReineEnceinte queen = null;
-            List<PersonnageAbstrait> toRemove = new List<PersonnageAbstrait>();
-            Random random = new Random();
-            int resultat = random.Next(0, 5);
-            Fourmi newFourmi = null;
-            foreach (PersonnageAbstrait p in PersonnageAbstraitList)
-            {
-                if (p is ReineEnceinte)
-                {
-                    queen = (ReineEnceinte)p;
-
-                    if (queen.isAntBorn())
+          
+                    bool antBorn = false;
+                    ReineEnceinte reineE = null;
+                    PersonnageAbstrait reine = null;
+                    ReineEnceinte queen = null;
+                    List<PersonnageAbstrait> toRemove = new List<PersonnageAbstrait>();
+                    Random random = new Random();
+                    int resultat = random.Next(0, 5);
+                    Fourmi newFourmi = null;
+                    foreach (PersonnageAbstrait p in PersonnageAbstraitList)
                     {
-                        antBorn = true;
-                        newFourmi = new Fourmi("Fourmi n" + PersonnageAbstraitList.Count, this.Position);
-                        toRemove.Add(p);
-                    }
-                }
+                        if (p is ReineEnceinte)
+                        {
+                            queen = (ReineEnceinte)p;
 
-            }
+                            if (queen.isAntBorn())
+                            {
+                                antBorn = true;
+                                newFourmi = new Fourmi("Fourmi n" + PersonnageAbstraitList.Count, this.Position);
+                                toRemove.Add(p);
+                            }
+                        }
 
-            if (queen != null && antBorn == true)
-            {
-                reine = queen.reine;
-                foreach (PersonnageAbstrait ro in toRemove)
-                {
-                    this.PersonnageAbstraitList.Remove(ro);
-                }
-                this.AjoutePersonnage(reine);
-                this.AjoutePersonnage(newFourmi);
-            }
-            reine = null;
-
-            if (resultat == 0)
-            {
-                foreach (PersonnageAbstrait p in PersonnageAbstraitList)
-                {
-                    if (p.Type == TypePersonnage.Reine && p is Reine)
-                    {
-                        reine = p;
-                        toRemove.Add(p);
                     }
 
-                }
-                if (reine != null)
-                {
-                    foreach (PersonnageAbstrait ro in toRemove)
+                    if (queen != null && antBorn == true)
                     {
-                        this.PersonnageAbstraitList.Remove(ro);
+                        reine = queen.reine;
+                        foreach (PersonnageAbstrait ro in toRemove)
+                        {
+                            this.PersonnageAbstraitList.Remove(ro);
+                        }
+                        this.AjoutePersonnage(reine);
+                        this.AjoutePersonnage(newFourmi);
                     }
-                    reineE = new ReineEnceinte(reine);
-                    this.AjoutePersonnage(reineE);
+                    reine = null;
+
+                    if (resultat == 0)
+                    {
+                        foreach (PersonnageAbstrait p in PersonnageAbstraitList)
+                        {
+                            if (p.Type == TypePersonnage.Reine && p is Reine)
+                            {
+                                reine = p;
+                                toRemove.Add(p);
+                            }
+
+                        }
+                        if (reine != null)
+                        {
+                            foreach (PersonnageAbstrait ro in toRemove)
+                            {
+                                this.PersonnageAbstraitList.Remove(ro);
+                            }
+                            reineE = new ReineEnceinte(reine);
+                            this.AjoutePersonnage(reineE);
+                        }
+
+                    }
+                    // verif doublons
+                    bool checkReine = false;
+                    bool checkReineEnceinte = false;
+                    List<PersonnageAbstrait> toRemoveCheck = new List<PersonnageAbstrait>();
+                    foreach (PersonnageAbstrait p in PersonnageAbstraitList)
+                    {
+                        if (p is Reine)
+                        {
+                            if (checkReine)
+                            {
+                                toRemoveCheck.Add(p);
+                            }
+                            checkReine = true;
+                        }
+                        if (p is ReineEnceinte)
+                        {
+                            if (checkReineEnceinte)
+                            {
+                                toRemoveCheck.Add(p);
+                            }
+                            checkReineEnceinte = true;
+                        }
+                    }
+                    foreach (PersonnageAbstrait p in toRemoveCheck)
+                    {
+                        this.PersonnageAbstraitList.Remove(p);
+                    }
+
+                    
                 }
 
-            }
-            // verif doublons
-            bool checkReine = false;
-            bool checkReineEnceinte = false;
-            List<PersonnageAbstrait> toRemoveCheck = new List<PersonnageAbstrait>();
-            foreach (PersonnageAbstrait p in PersonnageAbstraitList)
-            {
-                if (p is Reine)
-                {
-                    if (checkReine)
-                    {
-                        toRemoveCheck.Add(p);
-                    }
-                    checkReine = true;
-                }
-                if (p is ReineEnceinte)
-                {
-                    if (checkReineEnceinte)
-                    {
-                        toRemoveCheck.Add(p);
-                    }
-                    checkReineEnceinte = true;
-                }
-            }
-            foreach (PersonnageAbstrait p in toRemoveCheck)
-            {
-                this.PersonnageAbstraitList.Remove(p);
-            }
-        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         public void AnalyseSituation()
         {
@@ -348,13 +366,14 @@ namespace LibMetier
                         if (Meteo.Etat != EtatMeteo.Soleil)
                         {
                             new EtatFourmiGoHome().ModifieEtat(p);
-                        }else
+                        }
+                        else
                         {
                             new EtatFourmiRechercheNourriture().ModifieEtat(p);
                         }
-                        
+
                     }
-                    
+
                     if (p.EtatCourant.GetType() == new EtatFourmiGoHome().GetType())
                     {
                         //retourne à la fourmilière
