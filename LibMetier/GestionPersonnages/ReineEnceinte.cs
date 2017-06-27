@@ -11,7 +11,7 @@ namespace LibMetier.GestionPersonnages
     {
         public ReineEnceinte(PersonnageAbstrait personnage) : base(personnage)
         {
-
+            
         }
     }
 }

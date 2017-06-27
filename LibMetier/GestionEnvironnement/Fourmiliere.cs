@@ -5,7 +5,8 @@ using System.Linq;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
-
+using LibMetier.GestionPersonnages;
+using LibMetier.GestionTemps;
 
 namespace LibMetier
 {
@@ -15,9 +16,9 @@ namespace LibMetier
         internal List<ZoneAbstraite> ZoneAbstraiteList;
         internal List<ObjetAbstrait> ObjetAbstraitList;
         internal List<PersonnageAbstrait> PersonnageAbstraitList;
-        internal List<ObjetAbstrait> stock;
+        public List<ObjetAbstrait> stock { get; set; }
         public Meteo Meteo { get; set; }
-
+        public temps time { get; set; }
         public ZoneAbstraite Position { get; set; }
 
 
@@ -30,7 +31,7 @@ namespace LibMetier
             PersonnageAbstraitList = new List<PersonnageAbstrait>();
             stock = new List<ObjetAbstrait>();
             Meteo = new Meteo();
-
+            time = new temps();
 
         }
 
@@ -165,12 +166,23 @@ namespace LibMetier
             foreach (PersonnageAbstrait o in PersonnageAbstraitList)
             {
                 // todo check si nourriture en stock dans la fourmiliere + suppresion nourriture
-                if (stock.Count > 0)
+                if (stock.Count > 0 && o.Vie < 100 && o.Position == this.Position)
                 {
                     if(o.Position == this.Position)
                     {
                         // on supprime une nourriture du stock + ajoute 7 de vie a la fourmi
-                        stock.RemoveAt(0);
+                        if(stock.ElementAt(0).Vie > 0)
+                        {
+                            stock.ElementAt(0).Vie -= 2;
+                            if(stock.ElementAt(0).Vie == 0)
+                            {
+                                stock.RemoveAt(0);
+                            }
+                        }else
+                        {
+                            stock.RemoveAt(0);
+                        }
+                        
                         o.Vie += 10;
                         if(o.Vie > 100)
                         {
@@ -223,8 +235,71 @@ namespace LibMetier
             }
         }
 
+        public void gereReineEnceinte()
+        {
+            bool antBorn = false;
+            PersonnageAbstrait reine = null;
+            ReineEnceinte queen = null;
+            List<PersonnageAbstrait> toRemove = new List<PersonnageAbstrait>();
+            Random random = new Random();
+            int resultat = random.Next(0, 5);
+            Fourmi newFourmi = null;
+            foreach (PersonnageAbstrait p in PersonnageAbstraitList)
+            {
+                if (p is ReineEnceinte)
+                {
+                    queen = (ReineEnceinte)p;
+
+                    if (queen.isAntBorn())
+                    {
+                        antBorn = true;
+                        newFourmi = new Fourmi("Fourmi n" + PersonnageAbstraitList.Count, this.Position);
+                        toRemove.Add(p);
+                    }
+                }
+                
+            }
+            
+            if (queen != null && antBorn == true)
+            {
+                reine = queen.reine;
+                foreach (PersonnageAbstrait ro in toRemove)
+                {
+                    this.PersonnageAbstraitList.Remove(ro);
+                }
+                this.AjoutePersonnage(reine);
+                this.AjoutePersonnage(newFourmi);
+            }
+            reine = null;
+            
+            if (resultat == 0)
+            {
+                foreach (PersonnageAbstrait p in PersonnageAbstraitList)
+                {
+                    if (p.Type == TypePersonnage.Reine && p is Reine)
+                    {
+                        reine = p;
+                        toRemove.Add(p);
+                    }
+                    
+                }
+                if (reine != null)
+                {
+                    foreach (PersonnageAbstrait ro in toRemove)
+                    {
+                        this.PersonnageAbstraitList.Remove(ro);
+                    }
+                    ReineEnceinte reineE = new ReineEnceinte(reine);
+                    this.AjoutePersonnage(reineE);
+                }
+
+            }
+            
+        }
+
         public void AnalyseSituation()
         {
+            gereReineEnceinte();
             gereVieFourmi();
             gerePheromoneVie();
             foreach (PersonnageAbstrait p in PersonnageAbstraitList)
@@ -235,9 +310,6 @@ namespace LibMetier
                     {
                         p.PreviousPosition = this.Position;
                     }
-
-
-
 
                     // if fourmi a de la nourriture 
                     if (p.GetFood())
@@ -255,8 +327,7 @@ namespace LibMetier
                         }
                         
                     }
-
-
+                    
                     if (p.EtatCourant.GetType() == new EtatFourmiGoHome().GetType())
                     {
                         //retourne à la fourmilière
@@ -278,6 +349,7 @@ namespace LibMetier
                 }
 
             }
+            time.jourSuivant();
 
         }
 
@@ -423,6 +495,7 @@ namespace LibMetier
                 if (fourmi.GetFood())
                 {
                     fourmi.SetFood(false);
+                    fourmi.currentFood.Vie = 10;
                     this.stock.Add(fourmi.currentFood); // La nourriture est ajoutée aux stocks de la fourmilière.
                     fourmi.currentFood = null; // La fourmi se décharge de sa nourriture
                 }

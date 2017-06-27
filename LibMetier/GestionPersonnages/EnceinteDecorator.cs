@@ -10,7 +10,7 @@ namespace LibMetier.GestionPersonnages
 {
     public class EnceinteDecorator : PersonnageAbstrait
     {
-        protected PersonnageAbstrait reine;
+        public PersonnageAbstrait reine { get; set; }
 
         public int nbJourPregnant { get; set; }
 
@@ -41,6 +41,7 @@ namespace LibMetier.GestionPersonnages
 
         protected EnceinteDecorator(PersonnageAbstrait personnage)
         {
+            Type = TypePersonnage.Reine;
             this.Nom = personnage.Nom;
             this.Position = personnage.Position;
             EtapesList = new ObservableCollection<Etape>();
@@ -54,7 +55,7 @@ namespace LibMetier.GestionPersonnages
         public bool isAntBorn()
         {
             // une fourmi accouche au bout de 10 jours
-            if (nbJourPregnant >= 10)
+            if (nbJourPregnant >= 2)
             {
                 nbJourPregnant = 0;
                 return true;
@@ -68,9 +69,6 @@ namespace LibMetier.GestionPersonnages
 
         }
 
-        public override void Update(EtatMeteo Etat)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

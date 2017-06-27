@@ -45,7 +45,6 @@ namespace AnthillSim
 
         public void Refresh()
         {
-
             ListObjet = Fourmiliere.getObjets();
             ListFourmis = Fourmiliere.getPersonnages();
             Meteo.observers = ListFourmis;

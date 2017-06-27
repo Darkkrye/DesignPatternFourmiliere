@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace LibMetier.GestionTemps
 {
-    class temps
+    public class temps
     {
         public int nbJourDansAnne { get; set; }
         public int nbDeplacement { get; set; }
 
         public enum Saison { Hiver, Printemps, Ete, Automne };
-        private Saison saisonActuelle;
+        private Saison saisonActuelle { get; set; }
 
         public temps()
         {
